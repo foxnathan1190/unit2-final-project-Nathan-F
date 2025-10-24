@@ -1,0 +1,38 @@
+.aboutPage {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 100px;
+    font-size: x-large;
+    background-color: whitesmoke;
+    border: 1px solid black;
+    padding: 30px;
+    font-family: "Funnel Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}
+
+#aboutHeader {
+    font-size: 70px;
+    padding: 100px;
+}
+
+@media only screen and (max-width:600px) {
+    .aboutPage {
+        margin: auto;
+    }
+
+    #aboutHeader {
+        padding: 30px;
+    }
+}
+
+@media only screen and (max-width:900px) and (min-width: 600px) {
+    #aboutImage {
+        width: 500px;
+        height: 400px;
+    }
+}

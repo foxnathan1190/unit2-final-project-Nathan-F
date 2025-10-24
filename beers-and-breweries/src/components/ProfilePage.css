@@ -1,0 +1,20 @@
+table,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-size: xx-large;
+    width: 70%;
+}
+
+td {
+    background-color: skyblue;
+    padding: 0.6em;
+}
+
+@media only screen and (max-width:600px) {
+
+    table,
+    td {
+        font-size: medium;
+    }
+}

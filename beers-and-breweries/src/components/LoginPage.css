@@ -1,0 +1,54 @@
+.loginPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 100px 500px 100px;
+    background-color: whitesmoke;
+    border: 5px solid black;
+    box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.3);
+    font-family: "Funnel Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}
+
+@media only screen and (max-width:600px) {
+    .loginPage {
+        margin: auto;
+    }
+}
+
+@media only screen and (max-width: 900px) and (min-width: 600px) {
+    .loginPage {
+        margin: 50px 200px 50px;
+    }
+}
+
+#loginTitle {
+    text-decoration: underline;
+}
+
+#loginForm {
+    padding: 50px;
+    padding-top: 25px;
+}
+
+.button {
+    width: 70px;
+    height: 25px;
+    font-weight: bold;
+    background-color: hsl(120, 61%, 34%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: hsl(120, 61%, 24%);
+}
+
+#signUpButton {
+    float: right;
+}
