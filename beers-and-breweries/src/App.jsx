@@ -13,6 +13,7 @@ function App() {
 
   const [results, setResults] = useState([]);
   let [isLoggedIn, setIsLoggedIn] = useState(false); {/* Had to be made a let so that it could change on clicks and actions. */ }
+  const [savedItems, setSavedItems] = useState([]);
 
   const fetchData = async (value) => {   //Fetching data from openbrewery api
     try {
@@ -30,8 +31,6 @@ function App() {
     }
   }
 
-  const [savedItems, setSavedItems] = useState([]);
-
   // Callback function to handle adding an item
   const handleSaveItem = (itemToAdd) => {
     alert("Brewery saved to your brewery list.");
@@ -39,6 +38,17 @@ function App() {
     setSavedItems((prevItems) => [...prevItems, itemToAdd]);
     // Optionally, remove the item from the search results
     setSearchResults((prevResults) => prevResults.filter((result) => result.id !== itemToAdd.id));
+  }
+
+  // Callback function to remove an item from the saved list
+  const handleRemoveItem = (itemToRemove) => {
+    alert("Brewery removed from list.");
+    // Remove the item from the savedItems list
+    setSavedItems((prevSavedItems) =>
+      prevSavedItems.filter((result) => result.id !== itemToRemove.id)
+    );
+    // Add the item back to the searchResults list (optional)
+    setSearchResults((prevSearchResults) => [...prevSearchResults, itemToRemove]);
   }
 
   const handleLoggedIn = (dataFromLoginPage) => {  // Function to handle login, to recieve the update from the Login Page, so that can be passed on.
@@ -55,7 +65,7 @@ function App() {
           <Route path="/about" element={<About isLoggedIn={isLoggedIn} />} />
           <Route path="/profilePage" element={<ProfilePage isLoggedIn={isLoggedIn} />} /> {/* Updating logged in status from Login Page to Profile Page. */}
           <Route path="/search" element={<Search results={results} fetchData={fetchData} isLoggedIn={isLoggedIn} onSaveItem={handleSaveItem} />} /> {/* Passing props from App, parent component, to Search, child component */}
-          <Route path="/savedBreweries" element={<SavedBreweries isLoggedIn={isLoggedIn} savedItems={savedItems} />} />
+          <Route path="/savedBreweries" element={<SavedBreweries isLoggedIn={isLoggedIn} savedItems={savedItems} onRemoveItem={handleRemoveItem}/>} />
         </Routes>
       </Router>
     </>
