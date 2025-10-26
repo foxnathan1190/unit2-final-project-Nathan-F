@@ -30,6 +30,17 @@ function App() {
     }
   }
 
+  const [savedItems, setSavedItems] = useState([]);
+
+  // Callback function to handle adding an item
+  const handleSaveItem = (itemToAdd) => {
+    alert("Brewery saved to your brewery list.");
+    // Add the item to the savedItems list
+    setSavedItems((prevItems) => [...prevItems, itemToAdd]);
+    // Optionally, remove the item from the search results
+    setSearchResults((prevResults) => prevResults.filter((result) => result.id !== itemToAdd.id));
+  }
+
   const handleLoggedIn = (dataFromLoginPage) => {  // Function to handle login, to recieve the update from the Login Page, so that can be passed on.
     setIsLoggedIn(isLoggedIn = dataFromLoginPage);
   }
@@ -43,8 +54,8 @@ function App() {
           <Route path="/createProfile" element={<CreateProfile />} />
           <Route path="/about" element={<About isLoggedIn={isLoggedIn} />} />
           <Route path="/profilePage" element={<ProfilePage isLoggedIn={isLoggedIn} />} /> {/* Updating logged in status from Login Page to Profile Page. */}
-          <Route path="/search" element={<Search results={results} fetchData={fetchData} isLoggedIn={isLoggedIn} />} /> {/* Passing props from App, parent component, to Search, child component */}
-          <Route path="/savedBreweries" element={<SavedBreweries isLoggedIn={isLoggedIn} />} />
+          <Route path="/search" element={<Search results={results} fetchData={fetchData} isLoggedIn={isLoggedIn} onSaveItem={handleSaveItem} />} /> {/* Passing props from App, parent component, to Search, child component */}
+          <Route path="/savedBreweries" element={<SavedBreweries isLoggedIn={isLoggedIn} savedItems={savedItems} />} />
         </Routes>
       </Router>
     </>

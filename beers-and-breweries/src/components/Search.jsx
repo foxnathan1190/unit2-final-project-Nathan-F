@@ -4,14 +4,11 @@ import Footer from "../common/Footer";
 import Header from "../common/Header";
 import Spinner from "./Spinner";
 import "./Search.css";
-import { useNavigate } from "react-router";
 
-const Search = ({ results, fetchData, isLoggedIn }) => {  // These props retrieve the data being fetched in app.jsx as well as logged in status.
+const Search = ({ results, fetchData, isLoggedIn, onSaveItem }) => {  // These props retrieve the data being fetched in app.jsx as well as logged in status.
 
     const [searchInput, setSearchInput] = useState("");
     const [loading, setLoading] = useState(false);
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (results.length > 0) {
@@ -25,11 +22,6 @@ const Search = ({ results, fetchData, isLoggedIn }) => {  // These props retriev
         setLoading(true);
         setTimeout(setLoading, 2000, false);
         fetchData(e.target.value);
-    }
-
-    const handleClick = () => {
-        
-        navigate("/savedBreweries");
     }
 
     return (
@@ -50,7 +42,7 @@ const Search = ({ results, fetchData, isLoggedIn }) => {  // These props retriev
                 {loading ? (<Spinner />) :  // Ternary for loading with a ternary inside for displaying data vs not data
                     (<ul className="resultListContainer">
                         {searchInput ? results.map((result) => (
-                            <li key={result.id} className="resultList">{result.name} | {result.city}, {result.state} | <a href={result.website_url} target="_blank">{result.website_url}</a><button onClick={handleClick}>Save</button></li>
+                            <li key={result.id} className="resultList">{result.name} | {result.city}, {result.state} | <a href={result.website_url} target="_blank">{result.website_url}</a><button onClick={() => onSaveItem(result)}>Save</button></li>
                         )) : ("---Please Enter Search Query Above---")}
                     </ul>)}
             </section>
