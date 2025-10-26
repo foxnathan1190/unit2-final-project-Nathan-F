@@ -36,8 +36,6 @@ function App() {
     alert("Brewery saved to your brewery list.");
     // Add the item to the savedItems list
     setSavedItems((prevItems) => [...prevItems, itemToAdd]);
-    // Optionally, remove the item from the search results
-    setSearchResults((prevResults) => prevResults.filter((result) => result.id !== itemToAdd.id));
   }
 
   // Callback function to remove an item from the saved list
@@ -47,8 +45,6 @@ function App() {
     setSavedItems((prevSavedItems) =>
       prevSavedItems.filter((result) => result.id !== itemToRemove.id)
     );
-    // Add the item back to the searchResults list (optional)
-    setSearchResults((prevSearchResults) => [...prevSearchResults, itemToRemove]);
   }
 
   const handleLoggedIn = (dataFromLoginPage) => {  // Function to handle login, to recieve the update from the Login Page, so that can be passed on.
