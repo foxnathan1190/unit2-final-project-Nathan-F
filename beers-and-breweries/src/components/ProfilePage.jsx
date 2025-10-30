@@ -18,6 +18,12 @@ const ProfilePage = ({ isLoggedIn }) => {
 
     const [editedProfileData, setEditedProfileData] = useState({ ...profile });
 
+    useEffect(() => {
+        if (profile) {
+            setEditedProfileData({ ...profile });
+        }
+    }, [profile]);
+
     const handleEditClick = () => {
         setIsEditing(true);
         setEditedProfileData({ ...profile }); // Initialize edited data with current profile data
@@ -25,6 +31,7 @@ const ProfilePage = ({ isLoggedIn }) => {
 
     const handleSaveClick = async () => {
         setProfile(editedProfileData); // Update the main profile data
+        localStorage.setItem('userProfile', JSON.stringify(editedProfileData));
         setIsEditing(false);
     };
 
