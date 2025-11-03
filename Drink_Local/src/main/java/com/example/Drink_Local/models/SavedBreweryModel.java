@@ -1,6 +1,8 @@
 package com.example.Drink_Local.models;
 
 import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class SavedBreweryModel {
@@ -21,6 +23,9 @@ public class SavedBreweryModel {
         this.state = state;
         this.websiteURL = websiteURL;
     }
+
+    @ManyToMany(mappedBy = "savedBreweries")
+    private Set<UserProfileModel> savingUsers = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -56,5 +61,13 @@ public class SavedBreweryModel {
 
     public void setWebsiteURL(String websiteURL) {
         this.websiteURL = websiteURL;
+    }
+
+    public Set<UserProfileModel> getSavingUsers() {
+        return savingUsers;
+    }
+
+    public void setSavingUsers(Set<UserProfileModel> savingUsers) {
+        this.savingUsers = savingUsers;
     }
 }

@@ -1,6 +1,8 @@
 package com.example.Drink_Local.models;
 
 import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class UserProfileModel {
@@ -31,6 +33,14 @@ public class UserProfileModel {
         this.birthDay = birthDay;
         this.birthYear = birthYear;
     }
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "user_saved_breweries",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "brewery_id")
+    )
+    private Set<SavedBreweryModel> savedBreweries = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -106,6 +116,24 @@ public class UserProfileModel {
 
     public void setBirthYear(int birthYear) {
         this.birthYear = birthYear;
+    }
+
+    public Set<SavedBreweryModel> getSavedBreweries() {
+        return savedBreweries;
+    }
+
+    public void setSavedBreweries(Set<SavedBreweryModel> savedBreweries) {
+        this.savedBreweries = savedBreweries;
+    }
+
+    public void addSavedBrewery(SavedBreweryModel brewery) {
+        this.savedBreweries.add(brewery);
+        brewery.getSavingUsers().add(this);
+    }
+
+    public void removeSavedBrewery(SavedBreweryModel brewery) {
+        this.savedBreweries.remove(brewery);
+        brewery.getSavingUsers().remove(this);
     }
 }
 
