@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
-import Profile from "./classes";
-import Brewery from "./classes";
+import Profile from "../classes/Profile";
+import Brewery from "../classes/Brewery";
 
 export const DataContext = createContext();
 

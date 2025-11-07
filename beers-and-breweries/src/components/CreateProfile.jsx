@@ -1,9 +1,10 @@
-  import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { useNavigate } from "react-router";
 import Footer from "../common/Footer";
 import Header from "../common/Header";
 import Button from "../common/Button";
 import "./CreateProfile.css";
+import { DataContext } from "../context/DataContext";
 
 const CreateProfile = () => {
     const [fName, setFName] = useState("");  // Need all of these useStates for saving data to local storage.
@@ -16,10 +17,28 @@ const CreateProfile = () => {
     const [day, setDay] = useState("");
     const [year, setYear] = useState("");
 
+    const { fetchProfiles } = use(DataContext)
+
     const navigate = useNavigate();
     const today = new Date();
 
-    function handleCreateProfile(e) {    
+    const saveNewProfile = async profile => {
+        try {
+            const response = await fetch('http://localhost:8080/api/userprofile/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(profile)
+            });
+            const data = await response.json();
+            fetchProfiles();
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+
+    function handleCreateProfile(e) {
         e.preventDefault();
         let hasUppercase = false;    // Password and birthdate validation.
         let hasNumber = false;
@@ -40,7 +59,7 @@ const CreateProfile = () => {
         else if (day.length > 2 || day.length < 1 || day > 31 || day < 1) {
             alert("Please enter valid birth day.")
         }
-         else if (month.length > 2 || month.length < 1 || month > 12 || month < 1) {
+        else if (month.length > 2 || month.length < 1 || month > 12 || month < 1) {
             alert("Please enter valid birth month.")
         }
         else if (password.length < 8) {
@@ -50,6 +69,8 @@ const CreateProfile = () => {
         } else if (!hasNumber) {
             alert("Password must contain at least one number.");
         } else {
+            let newProfile = {};
+            saveNewProfile(newProfile);
             alert("Profile Created");
             navigate("/main");
         }
