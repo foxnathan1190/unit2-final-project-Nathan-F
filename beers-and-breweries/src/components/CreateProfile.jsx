@@ -84,7 +84,7 @@ const CreateProfile = () => {
             let newProfile = {
                 fName: fName,
                 lName: lName,
-                username: username,
+                userName: userName,
                 email: email,
                 password: password,
                 favBrewery: favBrewery,
@@ -97,10 +97,10 @@ const CreateProfile = () => {
         }
     }
 
-    useEffect(() => {    // This useEffect is how the program saves the users create profile data to render on the profile page.
-        const profileData = { fName, lName, username, email, password, favBrewery, month, day, year };
-        localStorage.setItem('userProfile', JSON.stringify(profileData));
-    }, [fName, lName, username, email, password, favBrewery, month, day, year]);
+    //useEffect(() => {    // This useEffect is how the program saves the users create profile data to render on the profile page.
+      //  const profileData = { fName, lName, username, email, password, favBrewery, month, day, year };
+        //localStorage.setItem('userProfile', JSON.stringify(profileData));
+    //}, [fName, lName, username, email, password, favBrewery, month, day, year]);
 
     return (
         <div>

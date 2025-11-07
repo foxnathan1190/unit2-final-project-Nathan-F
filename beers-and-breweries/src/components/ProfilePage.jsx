@@ -9,12 +9,14 @@ const ProfilePage = ({ isLoggedIn }) => {
     const [profile, setProfile] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
 
-    useEffect(() => {    // This pulls the data from local storage for the profile to be built below.
-        const storedProfile = localStorage.getItem('userProfile');
-        if (storedProfile) {
-            setProfile(JSON.parse(storedProfile));
-        }
-    }, []);
+    const { allProfiles, isLoading } = use(DataContext);
+
+    //useEffect(() => {    // This pulls the data from local storage for the profile to be built below.
+     //   const storedProfile = localStorage.getItem('userProfile');
+      //  if (storedProfile) {
+     //       setProfile(JSON.parse(storedProfile));
+     //   }
+    //}, []);
 
     const [editedProfileData, setEditedProfileData] = useState({ ...profile });
 

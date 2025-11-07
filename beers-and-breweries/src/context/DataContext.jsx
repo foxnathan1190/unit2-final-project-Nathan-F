@@ -16,9 +16,12 @@ export const DataProvider = ({ children }) => {
 
         try {
             const response = await fetch('http://localhost:8080/api/userprofile');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const data = await response.json();
 
-            data.ForEach(profile => {
+            data.forEach(profile => {
                 let newProfile = new Profile(profile.id, profile.fName, profile.lName, profile.userName, profile.email, profile.password, profile.favBrewery, profile.month, profile.day, profile.year);
                 profiles.push(newProfile);
             })
@@ -35,9 +38,12 @@ export const DataProvider = ({ children }) => {
 
         try {
             const response = await fetch('http://localhost:8080/api/saved-breweries');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const data = await response.json();
 
-            data.ForEach(brewery => {
+            data.forEach(brewery => {
                 let newBrewery = new Brewery(brewery.id, brewery.name, brewery.city, brewery.state, brewery.website_url);
                 breweries.push(newBrewery);
             })
