@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 import "./NavigationMenu.css";
 
-const NavigationMenu = ({ isLoggedIn }) => {
+const NavigationMenu = ({ isLoggedInAdmin }) => {
 
     const [profile, setProfile] = useState(null);
 
@@ -35,7 +35,7 @@ const NavigationMenu = ({ isLoggedIn }) => {
                 <Link to="/">Log Out</Link>
             </li>
             <li className="userLoggedIn" style={{ float: "right" }}>
-                {isLoggedIn ? (<p>User: Nfox1190</p>) : (profile ? (  /* Ternary for profile username display */
+                {isLoggedInAdmin ? (<p>User: Nfox1190</p>) : (profile ? (  /* Ternary for profile username display */
                     <p>User: {profile.username}</p>
                 ) : (
                     <p>No profile data found.</p>

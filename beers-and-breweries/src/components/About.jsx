@@ -4,12 +4,15 @@ import "./About.css";
 import NavigationMenu from "../common/NavigationMenu";
 import peopleAtBrewery from "../images/peopleAtBrewery.jpg";
 
-const About = ({ isLoggedIn }) => {
+const About = ({ isLoggedInAdmin }) => {
 
     return (
         <div >
             <Header />
-            <NavigationMenu isLoggedIn={isLoggedIn} />
+            <NavigationMenu isLoggedInAdmin
+    ={isLoggedInAdmin
+        
+            } />
             <section className="aboutPage">
                 <h1 id="aboutHeader">About Us</h1>
                 <img src={peopleAtBrewery} alt="People at a Brewery" id="aboutImage" />

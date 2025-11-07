@@ -7,11 +7,11 @@ import greatDivide from "../images/greatDivide.webp";
 import austinBeerworks from "../images/austinBeerworks.jpg";
 import rooftopBrewCo from "../images/rooftopBrewCo.jpg";
 
-const Main = ({ isLoggedIn }) => {
+const Main = ({ isLoggedInAdmin }) => {
     return (
         <>
             <Header />
-            <NavigationMenu isLoggedIn={isLoggedIn} />
+            <NavigationMenu isLoggedInAdmin={isLoggedInAdmin} />
             <div className="layout">
                 <h1 className="mainH1">Welcome to Drink Local!</h1>
                 <p>

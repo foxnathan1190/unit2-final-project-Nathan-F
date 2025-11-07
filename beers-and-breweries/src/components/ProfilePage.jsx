@@ -1,30 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import Footer from "../common/Footer";
 import Header from "../common/Header";
 import NavigationMenu from "../common/NavigationMenu";
 import "./ProfilePage.css";
+import { DataContext } from "../context/DataContext";
 
-const ProfilePage = ({ isLoggedIn }) => {
+const ProfilePage = ({ isLoggedInAdmin }) => {
 
-    const [profile, setProfile] = useState(null);
+    const { currentUser, isLoggedIn, updateCurrentUser } = use(DataContext);
+
+    const [profile, setProfile] = useState(currentUser);
     const [isEditing, setIsEditing] = useState(false);
 
-    const { allProfiles, isLoading } = use(DataContext);
-
     //useEffect(() => {    // This pulls the data from local storage for the profile to be built below.
-     //   const storedProfile = localStorage.getItem('userProfile');
-      //  if (storedProfile) {
-     //       setProfile(JSON.parse(storedProfile));
-     //   }
+    //   const storedProfile = localStorage.getItem('userProfile');
+    //  if (storedProfile) {
+    //       setProfile(JSON.parse(storedProfile));
+    //   }
     //}, []);
 
-    const [editedProfileData, setEditedProfileData] = useState({ ...profile });
-
     useEffect(() => {
-        if (profile) {
-            setEditedProfileData({ ...profile });
+        if (currentUser) {
+            setProfile(currentUser);
+            setEditedProfileData({ ...currentUser });
         }
-    }, [profile]);
+    }, [currentUser]);
+
+    const [editedProfileData, setEditedProfileData] = useState({});
 
     const handleEditClick = () => {
         setIsEditing(true);
@@ -32,9 +34,30 @@ const ProfilePage = ({ isLoggedIn }) => {
     };
 
     const handleSaveClick = async () => {
-        setProfile(editedProfileData); // Update the main profile data
-        localStorage.setItem('userProfile', JSON.stringify(editedProfileData));
-        setIsEditing(false);
+        if (!profile || !profile.id) return;
+
+        try {
+            // API Call for Saving Changes
+            const response = await fetch(`http://localhost:8080/api/userprofile/${profile.id}`, {
+                method: 'PUT', // Use PUT to update
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(editedProfileData),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const savedData = await response.json();
+
+            updateCurrentUser(savedData);
+            setProfile(savedData);
+            setIsEditing(false);
+        } catch (error) {
+            console.error("Failed to save profile:", error.message);
+        }
     };
 
     const handleCancelClick = () => {
@@ -49,11 +72,11 @@ const ProfilePage = ({ isLoggedIn }) => {
         }));
     };
 
-    if (isLoggedIn) {
+    if (isLoggedInAdmin) {
         return (
             <div>
                 <Header />
-                <NavigationMenu isLoggedIn={isLoggedIn} />
+                <NavigationMenu isLoggedInAdmin={isLoggedInAdmin} />
                 <div className="layout">
                     <h1>Your Profile</h1>
                     <table>
@@ -94,7 +117,7 @@ const ProfilePage = ({ isLoggedIn }) => {
                 <Header />
                 <NavigationMenu />
                 <div className="layout">
-                    {profile ? (
+                    {isLoggedIn && profile ? (
                         <>
                             {isEditing ? (              // This ternary allows the user to edit their profile data.
                                 <>

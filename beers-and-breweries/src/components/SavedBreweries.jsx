@@ -2,12 +2,12 @@ import Footer from "../common/Footer";
 import Header from "../common/Header";
 import NavigationMenu from "../common/NavigationMenu";
 
-const SavedBreweries = ({ isLoggedIn, savedItems, onRemoveItem }) => {
+const SavedBreweries = ({ isLoggedInAdmin, savedItems, onRemoveItem }) => {
 
     return (
         <>
             <Header />
-            <NavigationMenu isLoggedIn={isLoggedIn} />
+            <NavigationMenu isLoggedInAdmin={isLoggedInAdmin} />
             <section className="layout">
                 <h1>Saved Breweries</h1>
                 <ul>

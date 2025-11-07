@@ -5,7 +5,7 @@ import Header from "../common/Header";
 import Spinner from "./Spinner";
 import "./Search.css";
 
-const Search = ({ results, fetchData, isLoggedIn, onSaveItem }) => {  // These props retrieve the data being fetched in app.jsx as well as logged in status.
+const Search = ({ results, fetchData, isLoggedInAdmin, onSaveItem }) => {  // These props retrieve the data being fetched in app.jsx as well as logged in status.
 
     const [searchInput, setSearchInput] = useState("");
     const [loading, setLoading] = useState(false);
@@ -27,7 +27,7 @@ const Search = ({ results, fetchData, isLoggedIn, onSaveItem }) => {  // These p
     return (
         <div>
             <Header />
-            <NavigationMenu isLoggedIn={isLoggedIn} />
+            <NavigationMenu isLoggedInAdmin={isLoggedInAdmin} />
             <section className="layout">
                 <h1>&#128270; Search</h1>
                 <label htmlFor="search">Search Breweries by City or Brewery Name: </label>

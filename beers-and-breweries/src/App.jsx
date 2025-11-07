@@ -12,7 +12,7 @@ import SavedBreweries from './components/SavedBreweries';
 function App() {
 
   const [results, setResults] = useState([]);
-  let [isLoggedIn, setIsLoggedIn] = useState(false); {/* Had to be made a let so that it could change on clicks and actions. */ }
+  let [isLoggedInAdmin, setIsLoggedInAdmin] = useState(false); {/* Had to be made a let so that it could change on clicks and actions. */ }
   const [savedItems, setSavedItems] = useState([]);
 
   const fetchData = async (value) => {   //Fetching data from openbrewery api
@@ -48,7 +48,8 @@ function App() {
   }
 
   const handleLoggedIn = (dataFromLoginPage) => {  // Function to handle login, to recieve the update from the Login Page, so that can be passed on.
-    setIsLoggedIn(isLoggedIn = dataFromLoginPage);
+    setIsLoggedInAdmin(isLoggedInAdmin
+      = dataFromLoginPage);
   }
 
   return (
@@ -56,12 +57,12 @@ function App() {
       <Router> {/* Route set up */}
         <Routes>
           <Route path="/" element={<LoginPage onAction={handleLoggedIn} />} /> {/* Updating logged in status from Login Page. */}
-          <Route path="/main" element={<Main isLoggedIn={isLoggedIn} />} />
+          <Route path="/main" element={<Main isLoggedInAdmin={isLoggedInAdmin} />} />
           <Route path="/createProfile" element={<CreateProfile />} />
-          <Route path="/about" element={<About isLoggedIn={isLoggedIn} />} />
-          <Route path="/profilePage" element={<ProfilePage isLoggedIn={isLoggedIn} />} /> {/* Updating logged in status from Login Page to Profile Page. */}
-          <Route path="/search" element={<Search results={results} fetchData={fetchData} isLoggedIn={isLoggedIn} onSaveItem={handleSaveItem} />} /> {/* Passing props from App, parent component, to Search, child component */}
-          <Route path="/savedBreweries" element={<SavedBreweries isLoggedIn={isLoggedIn} savedItems={savedItems} onRemoveItem={handleRemoveItem}/>} />
+          <Route path="/about" element={<About isLoggedInAdmin={isLoggedInAdmin} />} />
+          <Route path="/profilePage" element={<ProfilePage isLoggedInAdmin={isLoggedInAdmin} />} /> {/* Updating logged in status from Login Page to Profile Page. */}
+          <Route path="/search" element={<Search results={results} fetchData={fetchData} isLoggedInAdmin={isLoggedInAdmin} onSaveItem={handleSaveItem} />} /> {/* Passing props from App, parent component, to Search, child component */}
+          <Route path="/savedBreweries" element={<SavedBreweries isLoggedInAdmin={isLoggedInAdmin} savedItems={savedItems} onRemoveItem={handleRemoveItem} />} />
         </Routes>
       </Router>
     </>
