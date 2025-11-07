@@ -9,15 +9,9 @@ const ProfilePage = ({ isLoggedInAdmin }) => {
 
     const { currentUser, isLoggedIn, updateCurrentUser } = use(DataContext);
 
-    const [profile, setProfile] = useState(currentUser);
+    const [profile, setProfile] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
-
-    //useEffect(() => {    // This pulls the data from local storage for the profile to be built below.
-    //   const storedProfile = localStorage.getItem('userProfile');
-    //  if (storedProfile) {
-    //       setProfile(JSON.parse(storedProfile));
-    //   }
-    //}, []);
+    const [editedProfileData, setEditedProfileData] = useState({});
 
     useEffect(() => {
         if (currentUser) {
@@ -25,8 +19,6 @@ const ProfilePage = ({ isLoggedInAdmin }) => {
             setEditedProfileData({ ...currentUser });
         }
     }, [currentUser]);
-
-    const [editedProfileData, setEditedProfileData] = useState({});
 
     const handleEditClick = () => {
         setIsEditing(true);

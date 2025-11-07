@@ -1,9 +1,9 @@
 export default class Profile {
-    constructor (id, fName, lName, userName, email, password, favBrewery, month, day, year) {
+    constructor (id, fName, lName, username, email, password, favBrewery, month, day, year) {
         this.id = id;
         this.fName = fName;
         this.lName = lName;
-        this.userName = userName;
+        this.username = username;
         this.email = email;
         this.password = password;
         this.favBrewery = favBrewery;

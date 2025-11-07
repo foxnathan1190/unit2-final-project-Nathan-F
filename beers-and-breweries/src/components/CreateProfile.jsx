@@ -84,7 +84,7 @@ const CreateProfile = () => {
             let newProfile = {
                 fName: fName,
                 lName: lName,
-                userName: userName,
+                username: username,
                 email: email,
                 password: password,
                 favBrewery: favBrewery,

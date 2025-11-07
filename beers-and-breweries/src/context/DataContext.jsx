@@ -18,6 +18,21 @@ export const DataProvider = ({ children }) => {
         setCurrentUser(userData);
     };
 
+    const createProfileObject = (profile) => {
+        return new Profile(
+            profile.id,
+            profile.fName,
+            profile.lName,
+            profile.username,
+            profile.email,
+            profile.password,
+            profile.favBrewery,
+            profile.month,
+            profile.day,
+            profile.year
+        );
+    }
+
     const fetchProfiles = async () => {
         const profiles = [];
 
@@ -29,7 +44,7 @@ export const DataProvider = ({ children }) => {
             const data = await response.json();
 
             data.forEach(profile => {
-                let newProfile = new Profile(profile.id, profile.fName, profile.lName, profile.userName, profile.email, profile.password, profile.favBrewery, profile.month, profile.day, profile.year);
+                let newProfile = new Profile(profile.id, profile.fName, profile.lName, profile.username, profile.email, profile.password, profile.favBrewery, profile.month, profile.day, profile.year);
                 profiles.push(newProfile);
             })
 
@@ -40,8 +55,8 @@ export const DataProvider = ({ children }) => {
         }
     }
 
-    const fetchCurrentUserProfile = async (userId) => {
-        if (!userId) return null;
+    const fetchCurrentUserProfile = async (id) => {
+        if (!id) return null;
         try {
             const response = await fetch(`http://localhost:8080/api/userprofile/${id}`);
             if (!response.ok) {
@@ -52,7 +67,7 @@ export const DataProvider = ({ children }) => {
             setCurrentUser(userProfile); // Set the current user state
             return userProfile;
         } catch (error) {
-            console.error(`Error fetching user ${userId} profile:`, error.message);
+            console.error(`Error fetching user ${id} profile:`, error.message);
             return null;
         }
     }
@@ -96,6 +111,15 @@ export const DataProvider = ({ children }) => {
     }
 
     useEffect(() => {
+        const storedUserId = localStorage.getItem('currentUserId');
+        if (storedUserId) {
+            // Fetching current user if an ID is stored (handles page refresh)
+            fetchCurrentUserProfile(storedUserId).then(user => {
+                if (user) {
+                    setIsLoggedIn(true);
+                }
+            });
+        }
         fetchProfiles();
         fetchSavedBreweries();
     }, []);
