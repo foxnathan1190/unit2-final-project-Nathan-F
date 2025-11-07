@@ -49,7 +49,7 @@ public class UserProfileController {
         return repository.findByFavBrewery(favBrewery);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<?> create(@RequestBody UserProfileModel user) {
         if (user.getUserName() != null && repository.existsByUserName(user.getUserName())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("username already exists");

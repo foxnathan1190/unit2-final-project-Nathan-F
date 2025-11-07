@@ -29,7 +29,7 @@ public class SavedBreweryController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<SavedBreweryModel> create(@RequestBody SavedBreweryModel newBrewery) {
         // id cannot be set (no setter), so saving will always generate a new id
         SavedBreweryModel saved = repository.save(newBrewery);
