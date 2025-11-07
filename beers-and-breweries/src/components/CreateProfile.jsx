@@ -17,7 +17,7 @@ const CreateProfile = () => {
     const [day, setDay] = useState("");
     const [year, setYear] = useState("");
 
-    const { fetchProfiles } = use(DataContext)
+    const { fetchProfiles } = use(DataContext);
 
     const navigate = useNavigate();
     const today = new Date();
@@ -31,8 +31,13 @@ const CreateProfile = () => {
                 },
                 body: JSON.stringify(profile)
             });
-            const data = await response.json();
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Error - Status ${response.status}');
+            } else {
             fetchProfiles();
+            navigate("/main");
+            }
         } catch (error) {
             console.error(error.message);
         }
@@ -52,27 +57,43 @@ const CreateProfile = () => {
         }
         if (year > (today.getFullYear() - 21)) {
             alert("Must be 21 years of age.")
+            return;
         }
         else if (year > 2025 || year < 1000 || year.length > 4) {
             alert("Please enter valid birth year.")
+            return;
         }
         else if (day.length > 2 || day.length < 1 || day > 31 || day < 1) {
             alert("Please enter valid birth day.")
+            return;
         }
         else if (month.length > 2 || month.length < 1 || month > 12 || month < 1) {
             alert("Please enter valid birth month.")
+            return;
         }
         else if (password.length < 8) {
             alert("Password must be at least 8 characters long.");
+            return;
         } else if (!hasUppercase) {
             alert("Password must contain at least one uppercase letter.");
+            return;
         } else if (!hasNumber) {
             alert("Password must contain at least one number.");
+            return;
         } else {
-            let newProfile = {};
+            let newProfile = {
+                fName: fName,
+                lName: lName,
+                username: username,
+                email: email,
+                password: password,
+                favBrewery: favBrewery,
+                birthMonth: month,
+                birthDay: day,
+                birthYear: year
+            };
             saveNewProfile(newProfile);
-            alert("Profile Created");
-            navigate("/main");
+            alert("Profile Created");   
         }
     }
 
