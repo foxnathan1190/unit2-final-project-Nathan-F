@@ -94,12 +94,12 @@ export const DataProvider = ({ children }) => {
         }
     }
 
-    const login = async (userId, token) => {
+    const login = async (id) => {
 
-        const user = await fetchCurrentUserProfile(userId);
+        const user = await fetchCurrentUserProfile(id);
 
         if (user) {
-            localStorage.setItem('currentUserId', userId);
+            localStorage.setItem('currentUserId', id);
             setIsLoggedIn(true);
         }
     }

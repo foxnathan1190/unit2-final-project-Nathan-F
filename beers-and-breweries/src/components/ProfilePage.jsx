@@ -7,11 +7,11 @@ import { DataContext } from "../context/DataContext";
 
 const ProfilePage = ({ isLoggedInAdmin }) => {
 
-    const { currentUser, isLoggedIn, updateCurrentUser } = use(DataContext);
+    const { currentUser, isLoggedIn, isLoading, updateCurrentUser } = use(DataContext);
 
     const [profile, setProfile] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
-    const [editedProfileData, setEditedProfileData] = useState({});
+    const [editedProfileData, setEditedProfileData] = useState(null);
 
     useEffect(() => {
         if (currentUser) {
@@ -109,7 +109,9 @@ const ProfilePage = ({ isLoggedInAdmin }) => {
                 <Header />
                 <NavigationMenu />
                 <div className="layout">
-                    {isLoggedIn && profile ? (
+                    {isLoading ? ( // <--- Add check for loading state
+                        <p>Loading Profile...</p>
+                    ) : isLoggedIn && profile ? (
                         <>
                             {isEditing ? (              // This ternary allows the user to edit their profile data.
                                 <>
