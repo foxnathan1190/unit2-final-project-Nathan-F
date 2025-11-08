@@ -30,9 +30,9 @@ public class UserProfileController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/by-username/{userName}")
-    public ResponseEntity<UserProfileModel> getByUserName(@PathVariable String userName) {
-        return repository.findByUserName(userName)
+    @GetMapping("/by-username/{username}")
+    public ResponseEntity<UserProfileModel> getByUsername(@PathVariable String username) {
+        return repository.findByUsername(username)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -51,7 +51,7 @@ public class UserProfileController {
 
     @PostMapping("/add")
     public ResponseEntity<?> create(@RequestBody UserProfileModel user) {
-        if (user.getUserName() != null && repository.existsByUserName(user.getUserName())) {
+        if (user.getUsername() != null && repository.existsByUsername(user.getUsername())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("username already exists");
         }
         if (user.getEmail() != null && repository.existsByEmail(user.getEmail())) {
@@ -65,8 +65,8 @@ public class UserProfileController {
     public ResponseEntity<UserProfileModel> update(@PathVariable Long id, @RequestBody UserProfileModel user) {
         return repository.findById(id)
                 .map(existing -> {
-                    if (user.getUserName() != null) {
-                        existing.setUserName(user.getUserName());
+                    if (user.getUsername() != null) {
+                        existing.setUsername(user.getUsername());
                     }
                     if (user.getEmail() != null) {
                         existing.setEmail(user.getEmail());
