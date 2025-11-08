@@ -30,7 +30,7 @@ public class SavedBreweryController {
         toSave.setName(req.getName());
         toSave.setCity(req.getCity());
         toSave.setState(req.getState());
-        toSave.setWebsiteUrl(req.getWebsiteUrl());
+        toSave.setWebsite_url(req.getWebsite_url());
 
         SavedBrewery saved = service.saveForUser(userId, toSave);
         return ResponseEntity.created(URI.create("/api/userprofile/" + userId + "/saved-breweries/" + saved.getId())).body(saved);
@@ -49,7 +49,7 @@ public class SavedBreweryController {
         private String name;
         private String city;
         private String state;
-        private String websiteUrl;
+        private String website_url;
         // getters/setters
         public String getBreweryId() { return breweryId; }
         public void setBreweryId(String breweryId) { this.breweryId = breweryId; }
@@ -59,7 +59,7 @@ public class SavedBreweryController {
         public void setCity(String city) { this.city = city; }
         public String getState() { return state; }
         public void setState(String state) { this.state = state; }
-        public String getWebsiteUrl() { return websiteUrl; }
-        public void setWebsiteUrl(String websiteUrl) { this.websiteUrl = websiteUrl; }
+        public String getWebsite_url() { return website_url; }
+        public void setWebsite_url(String website_url) { this.website_url = website_url; }
     }
 }

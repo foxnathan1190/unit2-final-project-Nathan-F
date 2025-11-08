@@ -27,7 +27,7 @@ public class SavedBrewery {
     private String state;
 
     @Column(name = "website_url")
-    private String websiteUrl;
+    private String website_url;
 
     @Column(name = "created_at")
     private Instant createdAt = Instant.now();
@@ -35,13 +35,13 @@ public class SavedBrewery {
     public SavedBrewery() {
     }
 
-    public SavedBrewery(String breweryId, UserProfileModel user, String name, String city, String state, String websiteUrl) {
+    public SavedBrewery(String breweryId, UserProfileModel user, String name, String city, String state, String website_url) {
         this.breweryId = breweryId;
         this.user = user;
         this.name = name;
         this.city = city;
         this.state = state;
-        this.websiteUrl = websiteUrl;
+        this.website_url = website_url;
     }
 
     public Long getId() {
@@ -88,12 +88,12 @@ public class SavedBrewery {
         this.state = state;
     }
 
-    public String getWebsiteUrl() {
-        return websiteUrl;
+    public String getWebsite_url() {
+        return website_url;
     }
 
-    public void setWebsiteUrl(String websiteUrl) {
-        this.websiteUrl = websiteUrl;
+    public void setWebsite_url(String website_url) {
+        this.website_url = website_url;
     }
 
     public Instant getCreatedAt() {
