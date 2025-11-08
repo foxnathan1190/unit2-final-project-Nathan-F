@@ -203,5 +203,14 @@ export const DataProvider = ({ children }) => {
         }
     }, [allProfiles]);
 
+    // When currentUser changes (login/logout), refresh user-scoped saved breweries
+    useEffect(() => {
+        if (currentUser && currentUser.id) {
+            fetchSavedBreweriesForUser(currentUser.id);
+        } else {
+            setSavedBreweries([]);
+        }
+    }, [currentUser]);
+
     return <DataContext.Provider value={{ isLoading, allProfiles, savedBreweries, currentUser, isLoggedIn, fetchProfiles, fetchSavedBreweriesForUser, saveBreweryForUser, removeSavedBreweryForUser, login, logout, updateCurrentUser, authenticate }}>{children}</DataContext.Provider>
 };
