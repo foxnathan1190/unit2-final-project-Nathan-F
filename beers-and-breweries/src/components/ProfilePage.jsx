@@ -94,7 +94,7 @@ const ProfilePage = ({ isLoggedInAdmin }) => {
                                 <td>Urban Chestnut Brewing</td>
                             </tr>
                             <tr>
-                                <td>Birthday:</td>
+                                <td>BirthbirthDay:</td>
                                 <td>11/19/1990</td>
                             </tr>
                         </tbody>
@@ -156,8 +156,8 @@ const ProfilePage = ({ isLoggedInAdmin }) => {
                                                 <td>{currentUser.favBrewery}</td>
                                             </tr>
                                             <tr>
-                                                <td>Birthday:</td>
-                                                <td>{currentUser.month}/{currentUser.day}/{currentUser.year}</td>
+                                                <td>Birthdate:</td>
+                                                <td>{currentUser.birthMonth}/{currentUser.birthDay}/{currentUser.birthYear}</td>
                                             </tr>
                                         </tbody>
                                     </table>

@@ -27,9 +27,9 @@ export const DataProvider = ({ children }) => {
             currentUser.email,
             currentUser.password,
             currentUser.favBrewery,
-            currentUser.month,
-            currentUser.day,
-            currentUser.year
+            currentUser.birthMonth,
+            currentUser.birthDay,
+            currentUser.birthYear
         );
     }
 
@@ -44,7 +44,7 @@ export const DataProvider = ({ children }) => {
             const data = await response.json();
 
             data.forEach(profile => {
-                let newProfile = new Profile(profile.id, profile.fName, profile.lName, profile.username, profile.email, profile.password, profile.favBrewery, profile.month, profile.day, profile.year);
+                let newProfile = new Profile(profile.id, profile.fName, profile.lName, profile.username, profile.email, profile.password, profile.favBrewery, profile.birthMonth, profile.birthDay, profile.birhtYear);
                 profiles.push(newProfile);
             })
 

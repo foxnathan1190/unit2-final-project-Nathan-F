@@ -1,11 +1,11 @@
 import { Link } from "react-router";
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import "./NavigationMenu.css";
 import { DataContext } from "../context/DataContext";
 
 const NavigationMenu = ({ isLoggedInAdmin }) => {
 
-    const { currentUser } = useContext(DataContext);
+    const { currentUser, logout } = useContext(DataContext);
 
     return (
         <ul id="nav">
@@ -25,7 +25,7 @@ const NavigationMenu = ({ isLoggedInAdmin }) => {
                 <Link to="/search">Search</Link>
             </li>
             <li className="navLink" style={{ float: "right" }}>
-                <Link to="/">Log Out</Link>
+                <Link to="/" onClick={() => logout(currentUser.id)}>Log Out</Link>
             </li>
             <li className="userLoggedIn" style={{ float: "right" }}>
                 {isLoggedInAdmin ? (<p>User: Nfox1190</p>) : (currentUser ? (  /* Ternary for profile username display */

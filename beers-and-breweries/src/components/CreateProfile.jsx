@@ -1,4 +1,4 @@
-import { useState, useEffect, use } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import Footer from "../common/Footer";
 import Header from "../common/Header";
@@ -13,11 +13,11 @@ const CreateProfile = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [favBrewery, setFavBrewery] = useState("");
-    const [month, setMonth] = useState("");
-    const [day, setDay] = useState("");
-    const [year, setYear] = useState("");
+    const [birthMonth, setBirthMonth] = useState("");
+    const [birthDay, setBirthDay] = useState("");
+    const [birthYear, setBirthYear] = useState("");
 
-    const { fetchProfiles, login } = use(DataContext);
+    const { fetchProfiles, login } = useContext(DataContext);
 
     const navigate = useNavigate();
     const today = new Date();
@@ -57,19 +57,19 @@ const CreateProfile = () => {
                 hasNumber = true;
             }
         }
-        if (year > (today.getFullYear() - 21)) {
+        if (birthYear > (today.getFullYear() - 21)) {
             alert("Must be 21 years of age.")
             return;
         }
-        else if (year > 2025 || year < 1000 || year.length > 4) {
-            alert("Please enter valid birth year.")
+        else if (birthYear > 2025 || birthYear < 1000 || birthYear.length > 4) {
+            alert("Please enter valid birth yYear.")
             return;
         }
-        else if (day.length > 2 || day.length < 1 || day > 31 || day < 1) {
+        else if (birthDay.length > 2 || birthDay.length < 1 || birthDay > 31 || birthDay < 1) {
             alert("Please enter valid birth day.")
             return;
         }
-        else if (month.length > 2 || month.length < 1 || month > 12 || month < 1) {
+        else if (birthMonth.length > 2 || birthMonth.length < 1 || birthMonth > 12 || birthMonth < 1) {
             alert("Please enter valid birth month.")
             return;
         }
@@ -90,9 +90,9 @@ const CreateProfile = () => {
                 email: email,
                 password: password,
                 favBrewery: favBrewery,
-                birthMonth: month,
-                birthDay: day,
-                birthYear: year
+                birthMonth: birthMonth,
+                birthDay: birthDay,
+                birthYear: birthYear
             };
             saveNewProfile(newProfile);
             login('${id}');
@@ -120,17 +120,17 @@ const CreateProfile = () => {
                     <input type="text" id="favBrewery" name="favBrewery" value={favBrewery} onChange={(e) => setFavBrewery(e.target.value)}></input><br />
                     <h4>Must be 21+ | Age Verification</h4>
                     <section>
-                        <label htmlFor="month">Month:</label>
+                        <label htmlFor="birthMonth">Month:</label>
                         <br />
-                        <input type="text" id="month" name="month" placeholder="00" value={month} onChange={(e) => setMonth(e.target.value)} required></input>
+                        <input type="text" id="birthMonth" name="birthMonth" placeholder="00" value={birthMonth} onChange={(e) => setBirthMonth(e.target.value)} required></input>
                         <br />
-                        <label htmlFor="day">Day:</label>
+                        <label htmlFor="birthDay">Day:</label>
                         <br />
-                        <input type="text" id="day" name="day" placeholder="00" value={day} onChange={(e) => setDay(e.target.value)} required></input>
+                        <input type="text" id="birthDay" name="birthDay" placeholder="00" value={birthDay} onChange={(e) => setBirthDay(e.target.value)} required></input>
                         <br />
-                        <label htmlFor="year">Year:</label>
+                        <label htmlFor="birthYear">Year:</label>
                         <br />
-                        <input type="text" id="year" name="year" placeholder="0000" value={year} onChange={(e) => setYear(e.target.value)} required></input>
+                        <input type="text" id="birthYear" name="birthYear" placeholder="0000" value={birthYear} onChange={(e) => setBirthYear(e.target.value)} required></input>
                     </section><br />
                     <Button type="submit" id="createProfileButton" label="Create Profile" />
                 </form>

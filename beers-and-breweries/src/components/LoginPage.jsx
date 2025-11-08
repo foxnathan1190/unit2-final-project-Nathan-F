@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { useState, use } from "react";
+import { useState, useContext } from "react";
 import Footer from "../common/Footer";
 import Button from "../common/Button";
 import "./LoginPage.css";
@@ -10,7 +10,7 @@ const LoginPage = ({ onAction }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const { login, currentUser } = use(DataContext);
+    const { login, currentUser } = useContext(DataContext);
 
     const navigate = useNavigate();
 
