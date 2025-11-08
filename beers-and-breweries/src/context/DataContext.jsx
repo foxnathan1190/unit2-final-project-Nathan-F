@@ -14,9 +14,36 @@ export const DataProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const updateCurrentUser = (userData) => {
+    const updateCurrentUser = (userData) => {q
         setCurrentUser(userData);
     };
+
+    // Authenticate by username/password using cached profiles (or fetch if not loaded)
+    const authenticate = async (username, password) => {
+        try {
+            // Ensure profiles are loaded
+            if (allProfiles === null) {
+                await fetchProfiles();
+            }
+
+            // find a matching profile in allProfiles
+            const match = (allProfiles || []).find(p => p.username === username && p.password === password);
+
+            if (match) {
+                // match may already be a Profile instance (created in fetchProfiles)
+                const userProfile = match;
+                setCurrentUser(userProfile);
+                localStorage.setItem('currentUserId', userProfile.id);
+                setIsLoggedIn(true);
+                return userProfile;
+            }
+
+            return null;
+        } catch (error) {
+            console.error('Authentication error:', error.message);
+            return null;
+        }
+    }
 
     const createProfileObject = (currentUser) => {
         return new Profile(
@@ -44,7 +71,7 @@ export const DataProvider = ({ children }) => {
             const data = await response.json();
 
             data.forEach(profile => {
-                let newProfile = new Profile(profile.id, profile.fName, profile.lName, profile.username, profile.email, profile.password, profile.favBrewery, profile.birthMonth, profile.birthDay, profile.birhtYear);
+                let newProfile = new Profile(profile.id, profile.fName, profile.lName, profile.username, profile.email, profile.password, profile.favBrewery, profile.birthMonth, profile.birthDay, profile.birthYear);
                 profiles.push(newProfile);
             })
 
@@ -130,5 +157,5 @@ export const DataProvider = ({ children }) => {
         }
     }, [allProfiles, allBreweries]);
 
-    return <DataContext.Provider value={{ isLoading, allProfiles, allBreweries, currentUser, isLoggedIn, fetchProfiles, fetchSavedBreweries, login, logout, updateCurrentUser }}>{children}</DataContext.Provider>
+    return <DataContext.Provider value={{ isLoading, allProfiles, allBreweries, currentUser, isLoggedIn, fetchProfiles, fetchSavedBreweries, login, logout, updateCurrentUser, authenticate }}>{children}</DataContext.Provider>
 };

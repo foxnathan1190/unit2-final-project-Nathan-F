@@ -10,11 +10,11 @@ const LoginPage = ({ onAction }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const { login, currentUser } = useContext(DataContext);
+    const { login, currentUser, authenticate } = useContext(DataContext);
 
     const navigate = useNavigate();
 
-    function handleClickLogin(e) { //Sends user to Main page.
+    async function handleClickLogin(e) { //Sends user to Main page.
         e.preventDefault();
         let hasUppercase = false;    // Password Validation
         let hasNumber = false;
@@ -36,13 +36,21 @@ const LoginPage = ({ onAction }) => {
             alert("Login Successful!")
             onAction(true);
             navigate("/main");
-        } else if (username === currentUser.username && password === currentUser.password) {  //Allows you to log in after loggining out with your new created profile.
-            alert("Login Successful!")
-            onAction(false);
-            login('${id}');
-            navigate("/main");
         } else {
-            alert("Username and Password not found, please create profile.")
+            // Try to authenticate against stored profiles (will fetch if needed)
+            try {
+                const user = await authenticate(username, password);
+                if (user) {
+                    alert("Login Successful!");
+                    onAction(false);
+                    navigate("/main");
+                } else {
+                    alert("Username and Password not found, please create profile.");
+                }
+            } catch (err) {
+                console.error('Login error:', err);
+                alert('An error occurred during login.');
+            }
         }
     }
 
