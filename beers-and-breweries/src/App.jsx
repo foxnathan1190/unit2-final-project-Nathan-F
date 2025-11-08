@@ -1,6 +1,6 @@
 import './App.css'
 import { BrowserRouter as Router, Route, Routes } from "react-router";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import LoginPage from './components/LoginPage';
 import CreateProfile from './components/CreateProfile';
 import About from './components/About';
@@ -8,12 +8,14 @@ import ProfilePage from './components/ProfilePage';
 import Search from './components/Search';
 import Main from './components/Main';
 import SavedBreweries from './components/SavedBreweries';
+import { DataContext } from './context/DataContext';
 
 function App() {
 
   const [results, setResults] = useState([]);
   let [isLoggedInAdmin, setIsLoggedInAdmin] = useState(false); {/* Had to be made a let so that it could change on clicks and actions. */ }
-  const [savedItems, setSavedItems] = useState([]);
+
+  const { saveBreweryForUser, fetchSavedBreweriesForUser } = useContext(DataContext);
 
   const fetchData = async (value) => {   //Fetching data from openbrewery api
     try {
@@ -31,21 +33,21 @@ function App() {
     }
   }
 
-  // Callback function to handle adding an item
-  const handleSaveItem = (itemToAdd) => {
-    alert("Brewery saved to your brewery list.");
-    // Add the item to the savedItems list
-    setSavedItems((prevItems) => [...prevItems, itemToAdd]);
+  // Callback function to handle adding an item (persist to backend)
+  const handleSaveItem = async (itemToAdd) => {
+    try {
+      await saveBreweryForUser(itemToAdd);
+      alert("Brewery saved to your brewery list.");
+      // refresh user saved list if needed
+      const storedUserId = localStorage.getItem('currentUserId');
+      if (storedUserId) fetchSavedBreweriesForUser(storedUserId);
+    } catch (error) {
+      console.error('Failed to save brewery:', error);
+      alert('Failed to save brewery. Please try again.');
+    }
   }
 
-  // Callback function to remove an item from the saved list
-  const handleRemoveItem = (itemToRemove) => {
-    alert("Brewery removed from list.");
-    // Remove the item from the savedItems list
-    setSavedItems((prevSavedItems) =>
-      prevSavedItems.filter((result) => result.id !== itemToRemove.id)
-    );
-  }
+  // removal is handled inside SavedBreweries via DataContext.removeSavedBreweryForUser
 
   const handleLoggedIn = (dataFromLoginPage) => {  // Function to handle login, to recieve the update from the Login Page, so that can be passed on.
     setIsLoggedInAdmin(isLoggedInAdmin
@@ -62,7 +64,7 @@ function App() {
           <Route path="/about" element={<About isLoggedInAdmin={isLoggedInAdmin} />} />
           <Route path="/profilePage" element={<ProfilePage isLoggedInAdmin={isLoggedInAdmin} />} /> {/* Updating logged in status from Login Page to Profile Page. */}
           <Route path="/search" element={<Search results={results} fetchData={fetchData} isLoggedInAdmin={isLoggedInAdmin} onSaveItem={handleSaveItem} />} /> {/* Passing props from App, parent component, to Search, child component */}
-          <Route path="/savedBreweries" element={<SavedBreweries isLoggedInAdmin={isLoggedInAdmin} savedItems={savedItems} onRemoveItem={handleRemoveItem} />} />
+          <Route path="/savedBreweries" element={<SavedBreweries isLoggedInAdmin={isLoggedInAdmin} />} />
         </Routes>
       </Router>
     </>

@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react";
 import Profile from "../classes/Profile";
-import Brewery from "../classes/Brewery";
 
 export const DataContext = createContext();
 
@@ -9,12 +8,12 @@ export const DataProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true);
 
     const [allProfiles, setAllProfiles] = useState(null);
-    const [allBreweries, setAllBreweries] = useState(null);
 
     const [currentUser, setCurrentUser] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [savedBreweries, setSavedBreweries] = useState([]);
 
-    const updateCurrentUser = (userData) => {q
+    const updateCurrentUser = (userData) => {
         setCurrentUser(userData);
     };
 
@@ -99,25 +98,70 @@ export const DataProvider = ({ children }) => {
         }
     }
 
-    const fetchSavedBreweries = async () => {
-        const breweries = [];
+    // (global saved-breweries fetch removed — we rely on per-user endpoints)
+
+    // Fetch saved breweries for a specific user (user-scoped)
+    const fetchSavedBreweriesForUser = async (userId) => {
+        if (!userId) return [];
+        try {
+            const response = await fetch(`http://localhost:8080/api/userprofile/${userId}/saved-breweries`);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const data = await response.json();
+            // Store returned saved-brewery rows as simple objects
+            setSavedBreweries(data);
+            return data;
+        } catch (error) {
+            console.error('Error fetching saved breweries for user:', error.message);
+            return [];
+        }
+    }
+
+    // Save a brewery for the current user
+    const saveBreweryForUser = async (brewery) => {
+        if (!currentUser || !currentUser.id) {
+            throw new Error('No current user set');
+        }
+
+        const payload = {
+            breweryId: brewery.id,
+            name: brewery.name,
+            city: brewery.city,
+            state: brewery.state,
+            website_url: brewery.website_url
+        };
 
         try {
-            const response = await fetch('http://localhost:8080/api/saved-breweries');
+            const response = await fetch(`http://localhost:8080/api/userprofile/${currentUser.id}/saved-breweries`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            const data = await response.json();
 
-            data.forEach(brewery => {
-                let newBrewery = new Brewery(brewery.id, brewery.name, brewery.city, brewery.state, brewery.website_url);
-                breweries.push(newBrewery);
-            })
-
+            const saved = await response.json();
+            // append to local saved list
+            setSavedBreweries(prev => [saved, ...prev]);
+            return saved;
         } catch (error) {
-            console.error(error.message);
-        } finally {
-            setAllBreweries(breweries);
+            console.error('Failed to save brewery for user:', error.message);
+            throw error;
+        }
+    }
+
+    const removeSavedBreweryForUser = async (savedId) => {
+        if (!currentUser || !currentUser.id) throw new Error('No current user set');
+        try {
+            const response = await fetch(`http://localhost:8080/api/userprofile/${currentUser.id}/saved-breweries/${savedId}`, { method: 'DELETE' });
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            // remove locally
+            setSavedBreweries(prev => prev.filter(s => s.id !== savedId));
+            return true;
+        } catch (error) {
+            console.error('Failed to remove saved brewery:', error.message);
+            throw error;
         }
     }
 
@@ -141,21 +185,23 @@ export const DataProvider = ({ children }) => {
         const storedUserId = localStorage.getItem('currentUserId');
         if (storedUserId) {
             // Fetching current user if an ID is stored (handles page refresh)
-            fetchCurrentUserProfile(storedUserId).then(user => {
+            const id = isNaN(Number(storedUserId)) ? storedUserId : Number(storedUserId);
+            fetchCurrentUserProfile(id).then(user => {
                 if (user) {
                     setIsLoggedIn(true);
+                    // load user-specific saved breweries
+                    fetchSavedBreweriesForUser(id);
                 }
             });
         }
         fetchProfiles();
-        fetchSavedBreweries();
     }, []);
 
     useEffect(() => {
-        if (allProfiles !== null && allBreweries !== null) {
+        if (allProfiles !== null) {
             setIsLoading(false);
         }
-    }, [allProfiles, allBreweries]);
+    }, [allProfiles]);
 
-    return <DataContext.Provider value={{ isLoading, allProfiles, allBreweries, currentUser, isLoggedIn, fetchProfiles, fetchSavedBreweries, login, logout, updateCurrentUser, authenticate }}>{children}</DataContext.Provider>
+    return <DataContext.Provider value={{ isLoading, allProfiles, savedBreweries, currentUser, isLoggedIn, fetchProfiles, fetchSavedBreweriesForUser, saveBreweryForUser, removeSavedBreweryForUser, login, logout, updateCurrentUser, authenticate }}>{children}</DataContext.Provider>
 };
