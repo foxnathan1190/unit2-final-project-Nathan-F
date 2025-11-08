@@ -140,7 +140,6 @@ export const DataProvider = ({ children }) => {
             }
 
             const saved = await response.json();
-            // append to local saved list
             setSavedBreweries(prev => [saved, ...prev]);
             return saved;
         } catch (error) {
