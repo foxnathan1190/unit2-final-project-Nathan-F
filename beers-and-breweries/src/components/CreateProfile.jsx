@@ -17,7 +17,7 @@ const CreateProfile = () => {
     const [day, setDay] = useState("");
     const [year, setYear] = useState("");
 
-    const { fetchProfiles } = use(DataContext);
+    const { fetchProfiles, login } = use(DataContext);
 
     const navigate = useNavigate();
     const today = new Date();
@@ -35,8 +35,10 @@ const CreateProfile = () => {
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Error - Status ${response.status}');
             } else {
-            fetchProfiles();
-            navigate("/main");
+                const newUserData = await response.json();
+                fetchProfiles();
+                await login(newUserData.id);
+                navigate("/main");
             }
         } catch (error) {
             console.error(error.message);
@@ -93,14 +95,10 @@ const CreateProfile = () => {
                 birthYear: year
             };
             saveNewProfile(newProfile);
-            alert("Profile Created");   
+            login('${id}');
+            alert("Profile Created");
         }
     }
-
-    //useEffect(() => {    // This useEffect is how the program saves the users create profile data to render on the profile page.
-      //  const profileData = { fName, lName, username, email, password, favBrewery, month, day, year };
-        //localStorage.setItem('userProfile', JSON.stringify(profileData));
-    //}, [fName, lName, username, email, password, favBrewery, month, day, year]);
 
     return (
         <div>

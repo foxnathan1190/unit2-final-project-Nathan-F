@@ -1,4 +1,4 @@
-import { useState, useEffect, use } from "react";
+import { useState, useEffect, useContext } from "react";
 import Footer from "../common/Footer";
 import Header from "../common/Header";
 import NavigationMenu from "../common/NavigationMenu";
@@ -7,30 +7,29 @@ import { DataContext } from "../context/DataContext";
 
 const ProfilePage = ({ isLoggedInAdmin }) => {
 
-    const { currentUser, isLoggedIn, isLoading, updateCurrentUser } = use(DataContext);
+    const { currentUser, isLoggedIn, isLoading, updateCurrentUser } = useContext(DataContext);
 
-    const [profile, setProfile] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
-    const [editedProfileData, setEditedProfileData] = useState(null);
+    const [editedProfileData, setEditedProfileData] = useState({});
 
     useEffect(() => {
         if (currentUser) {
-            setProfile(currentUser);
             setEditedProfileData({ ...currentUser });
         }
     }, [currentUser]);
 
     const handleEditClick = () => {
         setIsEditing(true);
-        setEditedProfileData({ ...profile }); // Initialize edited data with current profile data
+        setEditedProfileData({ ...currentUser }); // Initialize edited data with currentUser data
     };
 
-    const handleSaveClick = async () => {
-        if (!profile || !profile.id) return;
+    const handleSaveClick = async (e) => {
+        e.preventDefault();
+        if (!currentUser || !currentUser.id) return;
 
         try {
             // API Call for Saving Changes
-            const response = await fetch(`http://localhost:8080/api/userprofile/${profile.id}`, {
+            const response = await fetch(`http://localhost:8080/api/userprofile/${currentUser.id}`, {
                 method: 'PUT', // Use PUT to update
                 headers: {
                     'Content-Type': 'application/json',
@@ -45,15 +44,16 @@ const ProfilePage = ({ isLoggedInAdmin }) => {
             const savedData = await response.json();
 
             updateCurrentUser(savedData);
-            setProfile(savedData);
             setIsEditing(false);
         } catch (error) {
             console.error("Failed to save profile:", error.message);
         }
     };
-
     const handleCancelClick = () => {
         setIsEditing(false);
+        if (currentUser) {
+            setEditedProfileData({ ...currentUser });
+        }
     };
 
     const handleChange = (e) => {
@@ -111,22 +111,22 @@ const ProfilePage = ({ isLoggedInAdmin }) => {
                 <div className="layout">
                     {isLoading ? ( // <--- Add check for loading state
                         <p>Loading Profile...</p>
-                    ) : isLoggedIn && profile ? (
+                    ) : isLoggedIn && currentUser ? (
                         <>
                             {isEditing ? (              // This ternary allows the user to edit their profile data.
                                 <>
                                     <label htmlFor="fName">First Name:</label><br />
-                                    <input type="text" id="fName" name="fName" value={editedProfileData.fName} onChange={handleChange} required></input><br />
+                                    <input type="text" id="fName" name="fName" value={editedProfileData.fName || ''} onChange={handleChange} required></input><br />
                                     <label htmlFor="lName">Last Name:</label><br />
-                                    <input type="text" id="lName" name="lName" value={editedProfileData.lName} onChange={handleChange} required></input><br />
+                                    <input type="text" id="lName" name="lName" value={editedProfileData.lName || ''} onChange={handleChange} required></input><br />
                                     <label htmlFor="username">Username:</label><br />
-                                    <input type="text" id="username" name="username" value={editedProfileData.username} onChange={handleChange} required></input><br />
+                                    <input type="text" id="username" name="username" value={editedProfileData.username || ''} onChange={handleChange} required></input><br />
                                     <label htmlFor="email">Email:</label><br />
-                                    <input type="email" id="email" name="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" value={editedProfileData.email} onChange={handleChange} required></input><br />
+                                    <input type="email" id="email" name="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" value={editedProfileData.email || ''} onChange={handleChange} required></input><br />
                                     <label htmlFor="password">Password: </label><br />
-                                    <input type="password" id="password" name="password" value={editedProfileData.password} onChange={handleChange} required></input><br />
-                                    <label htmlFor="faveBrewery">Favorite Brewery:</label><br />
-                                    <input type="text" id="favBrewery" name="favBrewery" value={editedProfileData.favBrewery} onChange={handleChange}></input><br />
+                                    <input type="password" id="password" name="password" value={editedProfileData.password || ''} onChange={handleChange} required></input><br />
+                                    <label htmlFor="favBrewery">Favorite Brewery:</label><br />
+                                    <input type="text" id="favBrewery" name="favBrewery" value={editedProfileData.favBrewery || ''} onChange={handleChange}></input><br />
                                     <button onClick={handleSaveClick}>Save</button>
                                     <button onClick={handleCancelClick}>Cancel</button>
                                 </>
@@ -137,27 +137,27 @@ const ProfilePage = ({ isLoggedInAdmin }) => {
                                         <tbody>
                                             <tr>
                                                 <td>Name:</td>
-                                                <td>{profile.fName} {profile.lName}</td>
+                                                <td>{currentUser.fName} {currentUser.lName}</td>
                                             </tr>
                                             <tr>
                                                 <td>Username:</td>
-                                                <td>{profile.username}</td>
+                                                <td>{currentUser.username}</td>
                                             </tr>
                                             <tr>
                                                 <td>Email:</td>
-                                                <td>{profile.email}</td>
+                                                <td>{currentUser.email}</td>
                                             </tr>
                                             <tr>
                                                 <td>Password:</td>
-                                                <td>{profile.password}</td>
+                                                <td>{currentUser.password}</td>
                                             </tr>
                                             <tr>
                                                 <td>Favorite Brewery:</td>
-                                                <td>{profile.favBrewery}</td>
+                                                <td>{currentUser.favBrewery}</td>
                                             </tr>
                                             <tr>
                                                 <td>Birthday:</td>
-                                                <td>{profile.month}/{profile.day}/{profile.year}</td>
+                                                <td>{currentUser.month}/{currentUser.day}/{currentUser.year}</td>
                                             </tr>
                                         </tbody>
                                     </table>

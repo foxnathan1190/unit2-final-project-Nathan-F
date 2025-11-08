@@ -18,18 +18,18 @@ export const DataProvider = ({ children }) => {
         setCurrentUser(userData);
     };
 
-    const createProfileObject = (profile) => {
+    const createProfileObject = (currentUser) => {
         return new Profile(
-            profile.id,
-            profile.fName,
-            profile.lName,
-            profile.username,
-            profile.email,
-            profile.password,
-            profile.favBrewery,
-            profile.month,
-            profile.day,
-            profile.year
+            currentUser.id,
+            currentUser.fName,
+            currentUser.lName,
+            currentUser.username,
+            currentUser.email,
+            currentUser.password,
+            currentUser.favBrewery,
+            currentUser.month,
+            currentUser.day,
+            currentUser.year
         );
     }
 

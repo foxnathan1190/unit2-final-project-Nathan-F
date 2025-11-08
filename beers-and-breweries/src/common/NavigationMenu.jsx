@@ -1,18 +1,11 @@
 import { Link } from "react-router";
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useContext } from "react";
 import "./NavigationMenu.css";
+import { DataContext } from "../context/DataContext";
 
 const NavigationMenu = ({ isLoggedInAdmin }) => {
 
-    const [profile, setProfile] = useState(null);
-
-    useEffect(() => {  // Pulling in profile data from local storage to display user in nav bar.
-        const storedProfile = localStorage.getItem('userProfile');
-        if (storedProfile) {
-            setProfile(JSON.parse(storedProfile));
-        }
-    }, []);
+    const { currentUser } = useContext(DataContext);
 
     return (
         <ul id="nav">
@@ -35,8 +28,8 @@ const NavigationMenu = ({ isLoggedInAdmin }) => {
                 <Link to="/">Log Out</Link>
             </li>
             <li className="userLoggedIn" style={{ float: "right" }}>
-                {isLoggedInAdmin ? (<p>User: Nfox1190</p>) : (profile ? (  /* Ternary for profile username display */
-                    <p>User: {profile.username}</p>
+                {isLoggedInAdmin ? (<p>User: Nfox1190</p>) : (currentUser ? (  /* Ternary for profile username display */
+                    <p>User: {currentUser.username}</p>
                 ) : (
                     <p>No profile data found.</p>
                 ))}
