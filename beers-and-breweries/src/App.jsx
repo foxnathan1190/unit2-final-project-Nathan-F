@@ -17,17 +17,19 @@ function App() {
 
   const { saveBreweryForUser, fetchSavedBreweriesForUser } = useContext(DataContext);
 
-  const fetchData = async (value) => {   //Fetching data from openbrewery api
+  const fetchData = async (value) => {
+    if (!value || value.trim() === '') {
+      setResults([]);
+      return;
+    }
+      // Figured out Open Brewery documentation to be use entire API for searching with below URL.
     try {
-      const response = await fetch('https://api.openbrewerydb.org/v1/breweries?by_state=colorado&per_page=200',)
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const q = encodeURIComponent(value.trim());
+      const url = `https://api.openbrewerydb.org/v1/breweries/search?query=${q}&per_page=50`;
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
-      const results = data.filter((brewery) => {
-        return value && brewery && (brewery.city && brewery.city.toLowerCase().includes(value.toLowerCase())) || (brewery.name && brewery.name.toLowerCase().includes(value.toLowerCase()));
-      })
-      setResults(results);
+      setResults(data);
     } catch (error) {
       console.error("Error while fetching:", error);
     }
@@ -46,8 +48,6 @@ function App() {
       alert('Failed to save brewery. Please try again.');
     }
   }
-
-  // removal is handled inside SavedBreweries via DataContext.removeSavedBreweryForUser
 
   const handleLoggedIn = (dataFromLoginPage) => {  // Function to handle login, to recieve the update from the Login Page, so that can be passed on.
     setIsLoggedInAdmin(isLoggedInAdmin
