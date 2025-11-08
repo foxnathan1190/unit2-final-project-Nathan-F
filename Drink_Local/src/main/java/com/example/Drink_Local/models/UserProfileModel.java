@@ -40,7 +40,7 @@ public class UserProfileModel {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "brewery_id")
     )
-    private Set<SavedBreweryModel> savedBreweries = new HashSet<>();
+    private Set<SavedBrewery> savedBreweries = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -118,22 +118,12 @@ public class UserProfileModel {
         this.birthYear = birthYear;
     }
 
-    public Set<SavedBreweryModel> getSavedBreweries() {
+    public Set<SavedBrewery> getSavedBreweries() {
         return savedBreweries;
     }
 
-    public void setSavedBreweries(Set<SavedBreweryModel> savedBreweries) {
+    public void setSavedBreweries(Set<SavedBrewery> savedBreweries) {
         this.savedBreweries = savedBreweries;
-    }
-
-    public void addSavedBrewery(SavedBreweryModel brewery) {
-        this.savedBreweries.add(brewery);
-        brewery.getSavingUsers().add(this);
-    }
-
-    public void removeSavedBrewery(SavedBreweryModel brewery) {
-        this.savedBreweries.remove(brewery);
-        brewery.getSavingUsers().remove(this);
     }
 }
 

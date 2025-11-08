@@ -1,62 +1,65 @@
 package com.example.Drink_Local.controllers;
 
-import com.example.Drink_Local.models.SavedBreweryModel;
-import com.example.Drink_Local.repositories.SavedBreweryRepository;
+import com.example.Drink_Local.models.SavedBrewery;
+import com.example.Drink_Local.services.SavedBreweryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/saved-breweries")
+@RequestMapping("/api/userprofile/{userId}/saved-breweries")
 public class SavedBreweryController {
 
-    private final SavedBreweryRepository repository;
+    private final SavedBreweryService service;
 
-    public SavedBreweryController(SavedBreweryRepository repository) {
-        this.repository = repository;
+    public SavedBreweryController(SavedBreweryService service) {
+        this.service = service;
     }
 
     @GetMapping
-    public List<SavedBreweryModel> getAll() {
-        return repository.findAll();
+    public ResponseEntity<List<SavedBrewery>> list(@PathVariable Long userId) {
+        return ResponseEntity.ok(service.listForUser(userId));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<SavedBreweryModel> getById(@PathVariable Long id) {
-        return repository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    @PostMapping
+    public ResponseEntity<?> save(@PathVariable Long userId, @RequestBody SavedBreweryRequest req) {
+        SavedBrewery toSave = new SavedBrewery();
+        toSave.setBreweryId(req.getBreweryId());
+        toSave.setName(req.getName());
+        toSave.setCity(req.getCity());
+        toSave.setState(req.getState());
+        toSave.setWebsiteUrl(req.getWebsiteUrl());
+
+        SavedBrewery saved = service.saveForUser(userId, toSave);
+        return ResponseEntity.created(URI.create("/api/userprofile/" + userId + "/saved-breweries/" + saved.getId())).body(saved);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<SavedBreweryModel> create(@RequestBody SavedBreweryModel newBrewery) {
-        // id cannot be set (no setter), so saving will always generate a new id
-        SavedBreweryModel saved = repository.save(newBrewery);
-        return ResponseEntity.ok(saved);
+    @DeleteMapping("/{savedId}")
+    public ResponseEntity<?> delete(@PathVariable Long userId, @PathVariable Long savedId) {
+        boolean ok = service.removeForUser(userId, savedId);
+        if (!ok) return ResponseEntity.notFound().build();
+        return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<SavedBreweryModel> update(@PathVariable Long id, @RequestBody SavedBreweryModel updates) {
-        return repository.findById(id)
-                .map(existing -> {
-                    existing.setBreweryName(updates.getBreweryName());
-                    existing.setCity(updates.getCity());
-                    existing.setState(updates.getState());
-                    existing.setWebsiteURL(updates.getWebsiteURL());
-                    SavedBreweryModel saved = repository.save(existing);
-                    return ResponseEntity.ok(saved);
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        return repository.findById(id)
-                .map(existing -> {
-                    repository.deleteById(id);
-                    return ResponseEntity.noContent().<Void>build();
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    // DTO
+    public static class SavedBreweryRequest {
+        private String breweryId;
+        private String name;
+        private String city;
+        private String state;
+        private String websiteUrl;
+        // getters/setters
+        public String getBreweryId() { return breweryId; }
+        public void setBreweryId(String breweryId) { this.breweryId = breweryId; }
+        public String getName() { return name; }
+        public void setName(String name) { this.name = name; }
+        public String getCity() { return city; }
+        public void setCity(String city) { this.city = city; }
+        public String getState() { return state; }
+        public void setState(String state) { this.state = state; }
+        public String getWebsiteUrl() { return websiteUrl; }
+        public void setWebsiteUrl(String websiteUrl) { this.websiteUrl = websiteUrl; }
     }
 }
