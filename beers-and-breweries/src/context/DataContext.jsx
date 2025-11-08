@@ -98,8 +98,6 @@ export const DataProvider = ({ children }) => {
         }
     }
 
-    // (global saved-breweries fetch removed — we rely on per-user endpoints)
-
     // Fetch saved breweries for a specific user (user-scoped)
     const fetchSavedBreweriesForUser = async (userId) => {
         if (!userId) return [];
