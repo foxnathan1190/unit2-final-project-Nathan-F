@@ -70,7 +70,7 @@ const ProfilePage = ({ isLoggedInAdmin }) => {
                 <Header />
                 <NavigationMenu isLoggedInAdmin={isLoggedInAdmin} />
                 <div className="layout">
-                    <h1>Your Profile</h1>
+                    <h1>&#128100; Your Profile</h1>
                     <table>
                         <tbody>
                             <tr>
@@ -127,12 +127,12 @@ const ProfilePage = ({ isLoggedInAdmin }) => {
                                     <input type="password" id="password" name="password" value={editedProfileData.password || ''} onChange={handleChange} required></input><br />
                                     <label htmlFor="favBrewery">Favorite Brewery:</label><br />
                                     <input type="text" id="favBrewery" name="favBrewery" value={editedProfileData.favBrewery || ''} onChange={handleChange}></input><br />
-                                    <button onClick={handleSaveClick}>Save</button>
-                                    <button onClick={handleCancelClick}>Cancel</button>
+                                    <button className="button" onClick={handleSaveClick}>Save</button>
+                                    <button className="button" onClick={handleCancelClick}>Cancel</button>
                                 </>
                             ) : (
                                 <>
-                                    <h1>Your Profile</h1>
+                                    <h1>&#128100; Your Profile</h1> 
                                     <table>
                                         <tbody>
                                             <tr>
@@ -161,7 +161,7 @@ const ProfilePage = ({ isLoggedInAdmin }) => {
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <button onClick={handleEditClick}>Edit Profile</button>
+                                    <button className="editButton" onClick={handleEditClick}>Edit Profile</button>
                                 </>
                             )}
                         </>

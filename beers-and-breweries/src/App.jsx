@@ -25,7 +25,7 @@ function App() {
       // Figured out Open Brewery documentation to be use entire API for searching with below URL.
     try {
       const q = encodeURIComponent(value.trim());
-      const url = `https://api.openbrewerydb.org/v1/breweries/search?query=${q}&per_page=50`;
+      const url = `https://api.openbrewerydb.org/v1/breweries/search?query=${q}&per_page=200`;
       const response = await fetch(url);
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();

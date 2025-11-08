@@ -22,10 +22,10 @@ const SavedBreweries = ({ isLoggedInAdmin }) => {
             <Header />
             <NavigationMenu isLoggedInAdmin={isLoggedInAdmin} />
             <section className="layout">
-                <h1>Saved Breweries</h1>
-                <ul>
+                <h1>&#128190; Saved Breweries</h1>
+                <ul className="resultListContainer">
                     {savedBreweries && savedBreweries.length > 0 ? savedBreweries.map((result) => (
-                        <li key={result.id}>{result.name} | {result.city}, {result.state} | <a href={result.website_url} target="_blank">{result.website_url}</a><button onClick={() => handleRemove(result.id)}>Remove</button></li>
+                        <li key={result.id} className="resultList">{result.name} | {result.city}, {result.state} | <a href={result.website_url} target="_blank">{result.website_url}</a><button className="button" onClick={() => handleRemove(result.id)}>Remove</button></li>
                     )) : (<p>No saved breweries</p>)}
                 </ul>
             </section>

@@ -42,7 +42,7 @@ const Search = ({ results, fetchData, isLoggedInAdmin, onSaveItem }) => {  // Th
                 {loading ? (<Spinner />) :  // Ternary for loading with a ternary inside for displaying data vs not data
                     (<ul className="resultListContainer">
                         {searchInput ? results.map((result) => (
-                            <li key={result.id} className="resultList">{result.name} | {result.city}, {result.state} | <a href={result.website_url} target="_blank">{result.website_url}</a><button onClick={() => onSaveItem(result)}>Save</button></li>
+                            <li key={result.id} className="resultList">{result.name} | {result.city}, {result.state} | <a href={result.website_url} target="_blank">{result.website_url}</a><button className="button" onClick={() => onSaveItem(result)}>Save</button></li>
                         )) : ("---Please Enter Search Query Above---")}
                     </ul>)}
             </section>
