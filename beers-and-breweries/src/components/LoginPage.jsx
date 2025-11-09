@@ -10,7 +10,7 @@ const LoginPage = ({ onAction }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const { login, currentUser, authenticate } = useContext(DataContext);
+    const { authenticate } = useContext(DataContext);
 
     const navigate = useNavigate();
 
@@ -37,7 +37,7 @@ const LoginPage = ({ onAction }) => {
             onAction(true);
             navigate("/main");
         } else {
-            // Try to authenticate against stored profiles (will fetch if needed)
+            // Try to authenticate against stored profiles
             try {
                 const user = await authenticate(username, password);
                 if (user) {

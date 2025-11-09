@@ -22,6 +22,7 @@ const CreateProfile = () => {
     const navigate = useNavigate();
     const today = new Date();
 
+    // Function to save new profile to database
     const saveNewProfile = async profile => {
         try {
             const response = await fetch('http://localhost:8080/api/userprofile/add', {
@@ -45,6 +46,7 @@ const CreateProfile = () => {
         }
     }
 
+    // Handle Create Profile
     function handleCreateProfile(e) {
         e.preventDefault();
         let hasUppercase = false;    // Password and birthdate validation.

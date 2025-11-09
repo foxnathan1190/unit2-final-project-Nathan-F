@@ -9,10 +9,7 @@ const About = ({ isLoggedInAdmin }) => {
     return (
         <div >
             <Header />
-            <NavigationMenu isLoggedInAdmin
-    ={isLoggedInAdmin
-        
-            } />
+            <NavigationMenu isLoggedInAdmin={isLoggedInAdmin} />
             <section className="aboutPage">
                 <h1 id="aboutHeader">About Us</h1>
                 <img src={peopleAtBrewery} alt="People at a Brewery" id="aboutImage" />

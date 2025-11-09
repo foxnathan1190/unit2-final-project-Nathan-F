@@ -7,6 +7,7 @@ import { DataContext } from "../context/DataContext";
 const SavedBreweries = ({ isLoggedInAdmin }) => {
     const { savedBreweries, removeSavedBreweryForUser } = useContext(DataContext);
 
+    // Handle removing a saved brewery
     const handleRemove = async (savedId) => {
         try {
             await removeSavedBreweryForUser(savedId);

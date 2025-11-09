@@ -12,17 +12,20 @@ const ProfilePage = ({ isLoggedInAdmin }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedProfileData, setEditedProfileData] = useState({});
 
+    // When currentUser changes, update editedProfileData
     useEffect(() => {
         if (currentUser) {
             setEditedProfileData({ ...currentUser });
         }
     }, [currentUser]);
 
+    // Handle Edit Button Click
     const handleEditClick = () => {
         setIsEditing(true);
         setEditedProfileData({ ...currentUser }); // Initialize edited data with currentUser data
     };
 
+    // Handle Save Button Click
     const handleSaveClick = async (e) => {
         e.preventDefault();
         if (!currentUser || !currentUser.id) return;
@@ -49,6 +52,8 @@ const ProfilePage = ({ isLoggedInAdmin }) => {
             console.error("Failed to save profile:", error.message);
         }
     };
+
+    // Handle Cancel Button Click
     const handleCancelClick = () => {
         setIsEditing(false);
         if (currentUser) {
@@ -56,6 +61,7 @@ const ProfilePage = ({ isLoggedInAdmin }) => {
         }
     };
 
+    // Handle Input Change
     const handleChange = (e) => {
         const { name, value } = e.target;
         setEditedProfileData((prevData) => ({
@@ -132,7 +138,7 @@ const ProfilePage = ({ isLoggedInAdmin }) => {
                                 </>
                             ) : (
                                 <>
-                                    <h1>&#128100; Your Profile</h1> 
+                                    <h1>&#128100; Your Profile</h1>
                                     <table>
                                         <tbody>
                                             <tr>

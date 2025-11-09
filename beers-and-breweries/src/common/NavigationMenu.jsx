@@ -25,7 +25,7 @@ const NavigationMenu = ({ isLoggedInAdmin }) => {
                 <Link to="/search">Search</Link>
             </li>
             <li className="navLink" style={{ float: "right" }}>
-                <Link to="/" onClick={() => logout(currentUser.id)}>Log Out</Link>
+                <Link to="/" onClick={() => logout(currentUser.id)}>Log Out</Link> {/* Logout function called on click. */}
             </li>
             <li className="userLoggedIn" style={{ float: "right" }}>
                 {isLoggedInAdmin ? (<p>User: Nfox1190</p>) : (currentUser ? (  /* Ternary for profile username display */

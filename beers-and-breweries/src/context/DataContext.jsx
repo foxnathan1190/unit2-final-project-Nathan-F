@@ -6,18 +6,17 @@ export const DataContext = createContext();
 export const DataProvider = ({ children }) => {
 
     const [isLoading, setIsLoading] = useState(true);
-
     const [allProfiles, setAllProfiles] = useState(null);
-
     const [currentUser, setCurrentUser] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [savedBreweries, setSavedBreweries] = useState([]);
 
+    // Updating current user info in context
     const updateCurrentUser = (userData) => {
         setCurrentUser(userData);
     };
 
-    // Authenticate by username/password using cached profiles (or fetch if not loaded)
+    // Authenticate by username/password using database profiles
     const authenticate = async (username, password) => {
         try {
             // Ensure profiles are loaded
@@ -59,6 +58,7 @@ export const DataProvider = ({ children }) => {
         );
     }
 
+    //Fetching profiles from backend
     const fetchProfiles = async () => {
         const profiles = [];
 
@@ -81,6 +81,7 @@ export const DataProvider = ({ children }) => {
         }
     }
 
+    // Fetch current user profile by ID
     const fetchCurrentUserProfile = async (id) => {
         if (!id) return null;
         try {
@@ -98,14 +99,13 @@ export const DataProvider = ({ children }) => {
         }
     }
 
-    // Fetch saved breweries for a specific user (user-scoped)
+    // Fetch saved breweries for a specific user
     const fetchSavedBreweriesForUser = async (userId) => {
         if (!userId) return [];
         try {
             const response = await fetch(`http://localhost:8080/api/userprofile/${userId}/saved-breweries`);
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const data = await response.json();
-            // Store returned saved-brewery rows as simple objects
             setSavedBreweries(data);
             return data;
         } catch (error) {
@@ -148,6 +148,7 @@ export const DataProvider = ({ children }) => {
         }
     }
 
+    // Remove a saved brewery for the current user
     const removeSavedBreweryForUser = async (savedId) => {
         if (!currentUser || !currentUser.id) throw new Error('No current user set');
         try {
@@ -162,6 +163,7 @@ export const DataProvider = ({ children }) => {
         }
     }
 
+    // Login function to set current user and logged-in status
     const login = async (id) => {
 
         const user = await fetchCurrentUserProfile(id);
@@ -172,12 +174,14 @@ export const DataProvider = ({ children }) => {
         }
     }
 
+    // Logout function to clear current user and logged-in status
     const logout = () => {
         setCurrentUser(null);
         setIsLoggedIn(false);
         localStorage.removeItem('currentUserId');
     }
 
+    // On component mount, check for stored user ID to auto-login
     useEffect(() => {
         const storedUserId = localStorage.getItem('currentUserId');
         if (storedUserId) {
@@ -194,13 +198,14 @@ export const DataProvider = ({ children }) => {
         fetchProfiles();
     }, []);
 
+    // When allProfiles load, set loading to false
     useEffect(() => {
         if (allProfiles !== null) {
             setIsLoading(false);
         }
     }, [allProfiles]);
 
-    // When currentUser changes (login/logout), refresh user-scoped saved breweries
+    // When currentUser changes (login/logout), refresh user saved breweries
     useEffect(() => {
         if (currentUser && currentUser.id) {
             fetchSavedBreweriesForUser(currentUser.id);

@@ -22,7 +22,8 @@ function App() {
       setResults([]);
       return;
     }
-      // Figured out Open Brewery documentation to be use entire API for searching with below URL.
+
+    // Figured out Open Brewery documentation to be use entire API for searching with below URL.
     try {
       const q = encodeURIComponent(value.trim());
       const url = `https://api.openbrewerydb.org/v1/breweries/search?query=${q}&per_page=200`;
@@ -35,7 +36,7 @@ function App() {
     }
   }
 
-  // Callback function to handle adding an item (persist to backend)
+  // Callback function to handle adding an item
   const handleSaveItem = async (itemToAdd) => {
     try {
       await saveBreweryForUser(itemToAdd);
