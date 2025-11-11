@@ -30,7 +30,24 @@ function App() {
       const response = await fetch(url);
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
-      setResults(data);
+
+      // Filter to only items where brewery name or city match the query
+      const qLower = value.trim().toLowerCase();
+
+      const filtered = (data || []).filter(brewery => {
+        const name = brewery.name.toLowerCase();
+        const city = brewery.city.toLowerCase();
+        return name.includes(qLower) || city.includes(qLower);
+      });
+
+      // Alphabetize results by brewery name
+      const sorted = filtered.slice().sort((a, b) => {
+        const nameA = a.name.toLowerCase();
+        const nameB = b.name.toLowerCase();
+        return nameA.localeCompare(nameB);
+      });
+
+      setResults(sorted);
     } catch (error) {
       console.error("Error while fetching:", error);
     }
