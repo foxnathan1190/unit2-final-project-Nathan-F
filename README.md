@@ -5,4 +5,6 @@
 <h3>By: Nathan Fox || For: LaunchCode Saint Louis</h3>
 
 <h4>Technologies Used:</h4>
-<p>JavaScript | React | Vite | Maven | Java | Spring Boot | MYSQL | React Router | CSS | Hibernate | Font Awesome| Google Fonts</p>
+<p>JavaScript | React | Vite | Maven | Java | Spring Boot | MYSQL | React Router | CSS | Hibernate | Font Awesome | Google Fonts</p>
+
+<hr>
