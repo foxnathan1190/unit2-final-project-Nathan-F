@@ -126,7 +126,7 @@
 <a href="https://www.figma.com/design/ainOcIGr5pbh9D5Dao41My/Figma-basics?node-id=1669-162202&t=OfHXTmM5nawqDaIk-1">Digital Project Wireframe - Figma</a>
 
 <h3>Entity Relationship Diagram (ERD)</h3>
-<a href"https://www.figma.com/board/MVRW45gxaXuXIYz3T7wZhK/Drink-Local-ERD?node-id=0-1&p=f&t=fb4oCAVpIpoblFKr-0">Digital ERD - Figma</a>
+<a href="https://www.figma.com/board/MVRW45gxaXuXIYz3T7wZhK/Drink-Local-ERD?node-id=0-1&p=f&t=fb4oCAVpIpoblFKr-0">Digital ERD - Figma</a>
 
 <hr>
 
