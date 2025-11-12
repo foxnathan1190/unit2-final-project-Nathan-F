@@ -9,12 +9,12 @@
 
 <hr>
 
-<h2>About the Project</h2>
+<h2>💻 About the Project</h2>
 <p>A full-stack web application built using Java Spring Boot and MySQL that provides users with secure profile management and an interactive brewery search. The application leverages an external RESTful API to allow users to search for breweries by city or name, and features a persistence layer that enables signed-in users to save favorite breweries to their profile for future reference.</p>
 
 <hr>
 
-<h2>Core Features</h2>
+<h2>✨ Core Features</h2>
 <table>
   <tr>
     <th>Feature Category</th>
@@ -43,7 +43,7 @@
   </tr>
 </table>
 
-<h2>Architectural Features</h2>
+<h2>🗺️ Architectural Features</h2>
 <ul>
   <li>Full-Stack Architecture: Successful integration of a dedicated frontend with a powerful backend.</li>
   <li>Java Spring Boot Backend: The core business logic is handled by a robust, industry-standard Java framework.</li>
@@ -52,9 +52,9 @@
 
 <hr>
 
-<h2>Tech Stack</h2>
+<h2>🧱 Tech Stack</h2>
 
-<h3>Front End</h3>
+<h3>🌐 Front End</h3>
 <table>
   <tr>
     <th>Technology</th>
@@ -90,7 +90,7 @@
   </tr>
 </table>
 
-<h3>Back End & Database</h3>
+<h3>⚙️ Back End & Database</h3>
 <table>
  <tr>
     <th>Technology</th>
@@ -120,7 +120,7 @@
 
 <hr>
 
-<h2>Visuals</h2>
+<h2>📸 Visuals</h2>
 
 <h3>Wireframes</h3>
 <a href="https://www.figma.com/design/ainOcIGr5pbh9D5Dao41My/Figma-basics?node-id=1669-162202&t=OfHXTmM5nawqDaIk-1">Digital Project Wireframe - Figma</a>
@@ -130,3 +130,8 @@
 
 <hr>
 
+<h2>🛠️ Installation Instructions & Required Dependencies</h2>
+
+<hr>
+
+<h2>💡 Future Features</h2>
