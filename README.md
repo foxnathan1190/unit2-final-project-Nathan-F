@@ -5,7 +5,7 @@
 <h3>By: Nathan Fox || For: LaunchCode Saint Louis</h3>
 
 <h4>Technologies Used:</h4>
-<p>JavaScript | React | Vite | Maven | Java | Spring Boot | MYSQL | React Router | CSS | Hibernate | Font Awesome | Google Fonts</p>
+<p>JavaScript | React | Vite | Maven | Java | Spring Boot | MySQL | React Router | CSS | Hibernate | Font Awesome | Google Fonts</p>
 
 <hr>
 
@@ -49,3 +49,71 @@
   <li>Java Spring Boot Backend: The core business logic is handled by a robust, industry-standard Java framework.</li>
   <li>MySQL Data Persistence: All user profiles and saved brewery lists are reliably stored in a relational database.</li>
 </ul>
+
+<hr>
+
+<h2>Tech Stack</h2>
+
+<h3>Front End</h3>
+<table>
+  <tr>
+    <th>Technology</th>
+    <th>Function in the Project</th>
+  </tr>
+  <tr>
+    <td>JavaScript</td>
+    <td>Core language for the entire frontend logic and interactivity.</td>
+  </tr>
+  <tr>
+    <td>React</td>
+    <td>Builds the modern UI and manages the application's client-side state, handling the interactive search and profile display.</td>
+  </tr>
+  <tr>
+    <td>Vite</td>
+    <td>Serves as the build and dev server for the React application, ensuring speed and efficiency during development.</td>
+  </tr>
+  <tr>
+    <td>React Router</td>
+    <td>Manages navigation, allowing users to move between different views (like the main search page, the profile, and perhaps brewery details) without a full page reload.</td>
+  </tr>
+  <tr>
+    <td>CSS</td>
+    <td>Styles the application to deliver the "modern UI" experience.</td>
+  </tr>
+  <tr>
+    <td>Font Awesome</td>
+    <td>Provides scalable, vector-based icons to enhance the visual appeal and usability of the application (e.g., save icon, search icon).</td>
+  </tr>
+  <tr>
+    <td>Google Fonts</td>
+    <td>Used to define the typography of the application, contributing to the professional, modern aesthetic.</td>
+  </tr>
+</table>
+
+<h3>Back End & Database</h3>
+<table>
+ <tr>
+    <th>Technology</th>
+    <th>Function in the Project</th>
+  </tr>
+  <tr>
+    <td>Java</td>
+    <td>The core language used to build the server-side API and business logic.</td>
+  </tr>
+   <tr>
+    <td>Spring Boot</td>
+    <td>Used to quickly build a robust RESTful API for handling requests from the frontend, managing user authentication, and performing database operations.</td>
+  </tr>
+   <tr>
+    <td>Maven</td>
+    <td>Handles project dependencies (Spring Boot libraries, Hibernate, etc.) and packages the Java application for deployment.</td>
+  </tr>
+   <tr>
+    <td>Hibernate</td>
+    <td>Manages the seamless transfer of data between the Java objects in your Spring Boot application and the rows/columns in the MySQL database.</td>
+  </tr>
+   <tr>
+    <td>MySQL</td>
+    <td>The persistent data store for saving user profiles and the list of breweries marked as favorites.</td>
+  </tr>
+</table>
