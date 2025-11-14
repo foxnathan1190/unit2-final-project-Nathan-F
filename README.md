@@ -132,7 +132,8 @@
 
 <h2>🛠️ Installation Instructions & Required Dependencies</h2>
 
-<h4>Step 1: Prerequisites Installation</h4>
+<h3>Step 1: Prerequisites Installation</h3>
+
 The user must first install the necessary software components.
 
 Java Development Kit (JDK) 21: Download and install JDK 21 (from Oracle, Adoptium, or another vendor) and set the JAVA_HOME environment variable.
@@ -143,7 +144,10 @@ Node.js & npm (or yarn): Download and install Node.js (which includes npm) for r
 
 Git: Install Git to clone the repository.
 
-<h4>Step 2: Clone the Project</h4>
+<hr height: 1px>
+
+<h3>Step 2: Clone the Project</h3>
+
 The user will use Git to get a copy of your application's code.
 
 Clone the Repository: Open a terminal or command prompt and run the following command, replacing the URL with the actual repository link:
@@ -155,7 +159,10 @@ Clone the Repository: Open a terminal or command prompt and run the following co
 
 Verify Structure: They should see separate folders for the frontend (e.g., client, frontend) and the backend (e.g., server, backend) inside the main project folder.
 
-<h4>Step 3: Database Setup (Backend)</h4>
+<hr height: 1px>
+
+<h3>Step 3: Database Setup (Backend)</h3>
+
 The backend needs a running MySQL database to connect to.
 
 Create Database: Log into their MySQL server and execute a command to create the database schema.
@@ -163,6 +170,7 @@ Create Database: Log into their MySQL server and execute a command to create the
 >SQL
 
 >CREATE DATABASE drink_local;
+
 Note: The name your_app_db must match the one configured in the Spring Boot application properties.
 
 Configure Backend: Navigate to the backend project folder and locate the Spring Boot configuration file (usually application.properties or application.yml) within the src/main/resources directory.
@@ -177,7 +185,10 @@ Update Credentials: They must update the database connection details to match th
 >spring.datasource.password=mypassword  Their MySQL password</br>
 >spring.jpa.hibernate.ddl-auto=update  Allows Hibernate to manage table creation
 
-<h4>Step 4: Run the Backend (Spring Boot)</h4>
+<hr height: 1px>
+
+<h3>Step 4: Run the Backend (Spring Boot)</h3>
+
 They will use Maven to build and run the Java backend.
 
 Navigate to Backend: Change directories into the backend project folder (where the pom.xml file is located).
@@ -194,7 +205,10 @@ Build and Run: Use the Maven wrapper (mvnw on Linux/macOS or mvnw.cmd on Windows
 
 Verify: The terminal should show Spring Boot starting up, typically reporting that it's running on a port (e.g., 8080).
 
-<h4>Step 5: Run the Frontend (React/Vite)</h4>
+<hr height: 1px>
+
+<h3>Step 5: Run the Frontend (React/Vite)</h3>
+
 They will use npm (Node Package Manager) to install dependencies and start the React development server.
 
 Navigate to Frontend: Change directories into the frontend project folder.
@@ -209,15 +223,20 @@ Install Dependencies: Install all required Node.js packages (React, React Router
 
 >npm install</br>
 > or yarn install if using yarn
+
 Start the Server: Start the Vite development server.
 
 >Bash
 
 >npm run dev</br>
 > or yarn dev
+
 Verify: The terminal should provide a local URL (e.g., http://localhost:5173) where the React application is running.
 
-<h4>Step 6: Access the Application</h4>
+<hr height: 1px>
+
+<h3>Step 6: Access the Application</h3>
+
 The application is now fully running!
 
 Open Browser: The user can open the URL provided by the Vite server (e.g., http://localhost:5173) in their web browser.
