@@ -148,10 +148,11 @@ The user will use Git to get a copy of your application's code.
 
 Clone the Repository: Open a terminal or command prompt and run the following command, replacing the URL with the actual repository link:
 
-Bash
+>Bash
 
-git clone [your-repository-url]
-cd [your-project-folder]
+>git clone [your-repository-url]
+>cd [your-project-folder]
+>
 Verify Structure: They should see separate folders for the frontend (e.g., client, frontend) and the backend (e.g., server, backend) inside the main project folder.
 
 Step 3: Database Setup (Backend)
@@ -159,38 +160,40 @@ The backend needs a running MySQL database to connect to.
 
 Create Database: Log into their MySQL server and execute a command to create the database schema.
 
-SQL
+>SQL
 
-CREATE DATABASE your_app_db;
+>CREATE DATABASE your_app_db;
 Note: The name your_app_db must match the one configured in the Spring Boot application properties.
 
 Configure Backend: Navigate to the backend project folder and locate the Spring Boot configuration file (usually application.properties or application.yml) within the src/main/resources directory.
 
 Update Credentials: They must update the database connection details to match their local MySQL setup:
 
-Properties
+>Properties
 
-# Example for application.properties
-spring.datasource.url=jdbc:mysql://localhost:3306/your_app_db
-spring.datasource.username=root  # Or their local MySQL user
-spring.datasource.password=mypassword # Their MySQL password
-spring.jpa.hibernate.ddl-auto=update # Allows Hibernate to manage table creation
+># Example for application.properties
+>spring.datasource.url=jdbc:mysql://localhost:3306/your_app_db
+>spring.datasource.username=root  # Or their local MySQL user
+>spring.datasource.password=mypassword # Their MySQL password
+>spring.jpa.hibernate.ddl-auto=update # Allows Hibernate to manage table creation
 
 Step 4: Run the Backend (Spring Boot)
 They will use Maven to build and run the Java backend.
 
 Navigate to Backend: Change directories into the backend project folder (where the pom.xml file is located).
 
-Bash
+>Bash
 
-cd [your-project-folder]/backend
+>cd [your-project-folder]/backend
+
 Build and Run: Use the Maven wrapper (mvnw on Linux/macOS or mvnw.cmd on Windows) to build and run the application.
 
-Bash
+>Bash
 
-./mvnw spring-boot:run
-# OR: mvn clean install (to build the jar) 
-# and then java -jar target/[your-app].jar (to run)
+>./mvnw spring-boot:run
+># OR: mvn clean install (to build the jar) 
+># and then java -jar target/[your-app].jar (to run)
+
 Verify: The terminal should show Spring Boot starting up, typically reporting that it's running on a port (e.g., 8080).
 
 Step 5: Run the Frontend (React/Vite)
@@ -198,21 +201,22 @@ They will use npm (Node Package Manager) to install dependencies and start the R
 
 Navigate to Frontend: Change directories into the frontend project folder.
 
-Bash
+>Bash
 
-cd [your-project-folder]/frontend
+>cd [your-project-folder]/frontend
+
 Install Dependencies: Install all required Node.js packages (React, React Router, Font Awesome, etc.).
 
-Bash
+>Bash
 
-npm install
-# or yarn install if using yarn
+>npm install
+># or yarn install if using yarn
 Start the Server: Start the Vite development server.
 
-Bash
+>Bash
 
-npm run dev
-# or yarn dev
+>npm run dev
+># or yarn dev
 Verify: The terminal should provide a local URL (e.g., http://localhost:5173) where the React application is running.
 
 Step 6: Access the Application
