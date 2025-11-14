@@ -150,7 +150,7 @@ Clone the Repository: Open a terminal or command prompt and run the following co
 
 >Bash
 
->git clone https://github.com/foxnathan1190/unit2-final-project-Nathan-F.git
+>git clone https://github.com/foxnathan1190/unit2-final-project-Nathan-F.git</br>
 >cd beers-and-breweries
 
 Verify Structure: They should see separate folders for the frontend (e.g., client, frontend) and the backend (e.g., server, backend) inside the main project folder.
@@ -207,13 +207,13 @@ Install Dependencies: Install all required Node.js packages (React, React Router
 
 >Bash
 
->npm install
+>npm install</br>
 > or yarn install if using yarn
 Start the Server: Start the Vite development server.
 
 >Bash
 
->npm run dev
+>npm run dev</br>
 > or yarn dev
 Verify: The terminal should provide a local URL (e.g., http://localhost:5173) where the React application is running.
 
