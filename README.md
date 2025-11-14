@@ -150,8 +150,8 @@ Clone the Repository: Open a terminal or command prompt and run the following co
 
 >Bash
 
->git clone [your-repository-url]
->cd [your-project-folder]
+>git clone https://github.com/foxnathan1190/unit2-final-project-Nathan-F.git
+>cd beers-and-breweries
 
 Verify Structure: They should see separate folders for the frontend (e.g., client, frontend) and the backend (e.g., server, backend) inside the main project folder.
 
@@ -162,7 +162,7 @@ Create Database: Log into their MySQL server and execute a command to create the
 
 >SQL
 
->CREATE DATABASE your_app_db;
+>CREATE DATABASE drink_local;
 Note: The name your_app_db must match the one configured in the Spring Boot application properties.
 
 Configure Backend: Navigate to the backend project folder and locate the Spring Boot configuration file (usually application.properties or application.yml) within the src/main/resources directory.
@@ -171,10 +171,10 @@ Update Credentials: They must update the database connection details to match th
 
 >Properties
 
-> Example for application.properties
->spring.datasource.url=jdbc:mysql://localhost:3306/your_app_db
->spring.datasource.username=root   Or their local MySQL user
->spring.datasource.password=mypassword  Their MySQL password
+> Example for application.properties</br>
+>spring.datasource.url=jdbc:mysql://localhost:3306/drink_local</br>
+>spring.datasource.username=root   Or their local MySQL user</br>
+>spring.datasource.password=mypassword  Their MySQL password</br>
 >spring.jpa.hibernate.ddl-auto=update  Allows Hibernate to manage table creation
 
 <h4>Step 4: Run the Backend (Spring Boot)</h4>
@@ -184,15 +184,13 @@ Navigate to Backend: Change directories into the backend project folder (where t
 
 >Bash
 
->cd [your-project-folder]/backend
+>cd drink_local
 
 Build and Run: Use the Maven wrapper (mvnw on Linux/macOS or mvnw.cmd on Windows) to build and run the application.
 
 >Bash
 
 >./mvnw spring-boot:run
-> OR: mvn clean install (to build the jar) 
-> and then java -jar target/[your-app].jar (to run)
 
 Verify: The terminal should show Spring Boot starting up, typically reporting that it's running on a port (e.g., 8080).
 
@@ -203,7 +201,7 @@ Navigate to Frontend: Change directories into the frontend project folder.
 
 >Bash
 
->cd [your-project-folder]/frontend
+>cd ..//beers-and-breweries
 
 Install Dependencies: Install all required Node.js packages (React, React Router, Font Awesome, etc.).
 
