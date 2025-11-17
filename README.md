@@ -43,7 +43,7 @@
   </tr>
 </table>
 
-<h2>🗺️ Architectural Features</h2>
+<h2>📐 Architectural Features</h2>
 <ul>
   <li>Full-Stack Architecture: Successful integration of a dedicated frontend with a powerful backend.</li>
   <li>Java Spring Boot Backend: The core business logic is handled by a robust, industry-standard Java framework.</li>
