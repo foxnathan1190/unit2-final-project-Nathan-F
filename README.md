@@ -144,7 +144,7 @@ Node.js & npm (or yarn): Download and install Node.js (which includes npm) for r
 
 Git: Install Git to clone the repository.
 
-<hr height: .2px>
+<hr width: 50%>
 
 <h3>Step 2: Clone the Project</h3>
 
@@ -159,7 +159,7 @@ Clone the Repository: Open a terminal or command prompt and run the following co
 
 Verify Structure: They should see separate folders for the frontend (e.g., client, frontend) and the backend (e.g., server, backend) inside the main project folder.
 
-<hr height: .2px>
+<hr width: 50%>
 
 <h3>Step 3: Database Setup (Backend)</h3>
 
@@ -185,7 +185,7 @@ Update Credentials: They must update the database connection details to match th
 >spring.datasource.password=mypassword  Their MySQL password</br>
 >spring.jpa.hibernate.ddl-auto=update  Allows Hibernate to manage table creation
 
-<hr height: .2px>
+<hr width: 50%>
 
 <h3>Step 4: Run the Backend (Spring Boot)</h3>
 
@@ -205,7 +205,7 @@ Build and Run: Use the Maven wrapper (mvnw on Linux/macOS or mvnw.cmd on Windows
 
 Verify: The terminal should show Spring Boot starting up, typically reporting that it's running on a port (e.g., 8080).
 
-<hr height: .2px>
+<hr width: 50%>
 
 <h3>Step 5: Run the Frontend (React/Vite)</h3>
 
@@ -233,7 +233,7 @@ Start the Server: Start the Vite development server.
 
 Verify: The terminal should provide a local URL (e.g., http://localhost:5173) where the React application is running.
 
-<hr height: .2px>
+<hr width: 50%>
 
 <h3>Step 6: Access the Application</h3>
 
