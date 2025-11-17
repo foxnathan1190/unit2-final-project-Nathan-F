@@ -246,3 +246,22 @@ Test: They can now interact with the React frontend, which will communicate with
 <hr>
 
 <h2>💡 Future Features</h2>
+These are features that are planned for given the interest in expanding the application.
+
+<h3>Role changes for login</h3>
+<ul>
+  <li>Change splash page to welcome page.</li>
+  <li>Can use search without account.</li>
+  <li>Have login for saving breweries and other future features.</li>
+</ul>
+<h3>Broader search abilities</h3>
+<ul>
+  <li>External API has many more categories, including coordinates.</li>
+  <li>These coordinates could allow for a radius search around a certain city, to a certain mileage of the users choice.</li>
+</ul>
+<h3>More social features for account holders</h3>
+<ul>
+  <li>Add the ability for users to rate breweries.</li>
+  <li>Allow account holders to "friend" each other.</li>
+  <li>Allow for users to see other's ratings as well as recommend breweries to friends</li>
+</ul>
