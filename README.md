@@ -254,6 +254,12 @@ These are features that are planned for given the interest in expanding the appl
   <li>Can use search without account.</li>
   <li>Have login for saving breweries and other future features.</li>
 </ul>
+<h3>True authentication with token</h3>
+<ul>
+  <li>Current authentication is not true authentication.</li>
+  <li>Need to add components for authentication.</li>
+  <li>Remove password from showing on profile page.</li>
+</ul>
 <h3>Broader search abilities</h3>
 <ul>
   <li>External API has many more categories, including coordinates.</li>
