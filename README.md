@@ -264,5 +264,5 @@ These are features that are planned for given the interest in expanding the appl
 <ul>
   <li>Add the ability for users to rate breweries.</li>
   <li>Allow account holders to "friend" each other.</li>
-  <li>Allow for users to see other's ratings as well as recommend breweries to friends</li>
+  <li>Allow for users to see other's ratings as well as recommend breweries to friends.</li>
 </ul>
