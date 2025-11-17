@@ -258,6 +258,7 @@ These are features that are planned for given the interest in expanding the appl
 <ul>
   <li>External API has many more categories, including coordinates.</li>
   <li>These coordinates could allow for a radius search around a certain city, to a certain mileage of the users choice.</li>
+  <li>Coordinates could also allow for a map feature showing breweries the user has been to.</li>
 </ul>
 <h3>More social features for account holders</h3>
 <ul>
